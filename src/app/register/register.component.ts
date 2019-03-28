@@ -9,11 +9,11 @@ import { DataService } from '../data.service';
 })
 export class RegisterComponent implements OnInit {
 
-  messageForm:FormGroup;
+  messageForm: FormGroup;
   submitted = false;
   success = false;
 
-  constructor(private formBuilder: FormBuilder, private data: DataService) { 
+  constructor(private formBuilder: FormBuilder, private data: DataService) {
 
     this.messageForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -25,26 +25,27 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-  
-    if(this.messageForm.invalid){
+
+    if (this.messageForm.invalid) {
       //console.log(this.messageForm.controls);
       return;
     }
     this.success = true;
     const name = this.messageForm.controls.name.value;
-    console.log(this.messageForm.controls.name);
     const surname = this.messageForm.controls.surname.value;
     const email = this.messageForm.controls.email.value;
     const password = this.messageForm.controls.password.value;
 
-let user = {
-  "name": name,
-  "surname": surname,
-  "email": email,
-  "password": password
-}
+    let user = {
+      "name": name,
+      "surname": surname,
+      "email": email,
+      "password": password
+    }
 
-    this.data.registerUser(user);
+    this.data.registerUser(user).subscribe((response) =>{
+      console.log(response);
+    });
   }
 
   ngOnInit() {
