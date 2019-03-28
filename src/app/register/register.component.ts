@@ -12,6 +12,8 @@ export class RegisterComponent implements OnInit {
   messageForm: FormGroup;
   submitted = false;
   success = false;
+  response: Object;
+  errorResponse: Object;
 
   constructor(private formBuilder: FormBuilder, private data: DataService) {
 
@@ -43,9 +45,11 @@ export class RegisterComponent implements OnInit {
       "password": password
     }
 
-    this.data.registerUser(user).subscribe((response) =>{
-      console.log(response);
-    });
+    this.data.registerUser(user)
+      .subscribe(data =>
+        this.response = data,
+        error => this.errorResponse = error
+      );
   }
 
   ngOnInit() {

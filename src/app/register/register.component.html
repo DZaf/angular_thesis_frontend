@@ -42,18 +42,16 @@
     <input type="submit" value="Send message" class="cta">
 </form>
 
-<div *ngIf="submitted" class="results">
+<div *ngIf="submitted && response" class="results">
+  <span>{{ response.message }}</span>
+  <h4>Cridentials are: </h4>
+  <p>Name: {{ response.createdUser.name }}</p>
+  <p>Surname: {{ response.createdUser.surname }}</p>
+  <p>Email: {{ response.createdUser.email }}</p>
+  <p>Password: {{ response.createdUser.password }}</p>
 
-  <strong>Name:</strong>
-  <span>{{ messageForm.controls.name.value }}</span>
+</div>
 
-  <strong>Surname:</strong>
-  <span>{{ messageForm.controls.surname.value }}</span>
-
-  <strong>Email:</strong>
-  <span>{{ messageForm.controls.email.value }}</span>
-
-  <strong>Password:</strong>
-  <span>{{ messageForm.controls.password.value }}</span>
-
+<div *ngIf="submitted && errorResponse" class="results">
+<span>{{ errorResponse.message }}</span>
 </div>
