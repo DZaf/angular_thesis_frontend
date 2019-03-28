@@ -26,7 +26,7 @@ export class DataService {
       })
     };
 
-    return this.http.post<Object>("http://localhost:3000/users", user, httpOptions)
+    return this.http.post<Object>("https://thesis-server-icsd14052-54.herokuapp.com/users", user, httpOptions)
     .pipe(catchError(this.handleError));
 
   }
