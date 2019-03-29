@@ -1,0 +1,23 @@
+<h1>Git</h1>
+
+<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+  <label>
+    Repository:
+    <input type="text" formControlName="repo">
+  </label>
+
+  <label>
+      language:
+      <input type="text" formControlName="language">
+    </label>  
+
+    <input type="submit" value="Send message" class="cta">
+</form>
+
+<div *ngIf="submitted && response" class="results">
+  <span>{{ response.message }}</span>
+</div>
+
+<div *ngIf="submitted && errorResponse" class="results">
+<span>{{ errorResponse.message }}</span>
+</div>

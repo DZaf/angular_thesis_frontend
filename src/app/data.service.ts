@@ -14,6 +14,15 @@ export class DataService {
     return this.http.get('https://jsonplaceholder.typicode.com/users');
   }
 
+  gitsearch(repo:String, language:String) {
+    if(language=='')
+    {
+      return this.http.get('https://thesis-server-icsd14052-54.herokuapp.com/github/'+repo+'/');
+    }else{
+      return this.http.get('https://thesis-server-icsd14052-54.herokuapp.com/github/'+repo+'/'+language);
+    }    
+  }
+
 
 
   registerUser(user: Object): Observable<Object> {
