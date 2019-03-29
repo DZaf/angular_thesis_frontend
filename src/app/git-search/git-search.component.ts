@@ -12,6 +12,7 @@ export class GitSearchComponent implements OnInit {
   messageForm: FormGroup;
   response: Object;
   errorResponse: Object;
+  reposi:Object;
 
   constructor(private formBuilder: FormBuilder, private data: DataService) {
 
@@ -30,9 +31,12 @@ export class GitSearchComponent implements OnInit {
     const language = this.messageForm.controls.language.value;
 
     this.data.gitsearch(repo,language)
-    .subscribe(data =>
-      this.response = data,
-      error => this.errorResponse = error );
+    .subscribe(result =>
+      
+      {this.response = result;
+        this.reposi=result.repos; 
+        console.log(this.reposi);},
+      error => {this.errorResponse = error; console.log(error); } );
   }
   ngOnInit() {}
 
