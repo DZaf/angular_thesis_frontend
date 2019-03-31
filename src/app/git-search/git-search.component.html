@@ -15,7 +15,7 @@
 </form>
 
 <div *ngIf="response" class="results">
-  <div *ngFor="let repo of reposi">
+  <div *ngFor="let repo of response.repos">
     <img style="width:100px; height: 100px;" [attr.src]="repo.owner_avatar_url" [attr.href]="repo.owner_avatar_url">
     <br>
     <a style="color:black" target="_blank" [attr.href]="repo.owner_url">{{ repo.owner_name}}</a>

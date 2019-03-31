@@ -33,9 +33,8 @@ export class GitSearchComponent implements OnInit {
     this.data.gitsearch(repo,language)
     .subscribe(result =>
       
-      {this.response = result;
-        this.reposi=result.repos; 
-        console.log(this.reposi);},
+      {this.response=result; console.log(result);;
+        },
       error => {this.errorResponse = error; console.log(error); } );
   }
   ngOnInit() {}
