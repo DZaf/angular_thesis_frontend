@@ -36,7 +36,7 @@ onSubmit(){
   }
 
   this.data.Login(userlg)
-      .subscribe(data => {this.result=data; this.problem=true; console.log(data);}, error => {this.result=error; this.isproblem=true;  console.log(error); })       
+      .subscribe(data => {this.result=data; this.problem=true; this.isproblem=false; console.log(data);}, error => {this.result=error; this.isproblem=true;  this.problem=false; console.log(error); })       
 }
 
   ngOnInit() {
