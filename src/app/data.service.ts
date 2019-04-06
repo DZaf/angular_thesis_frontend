@@ -11,7 +11,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getUsers() {
-    return this.http.get('https://jsonplaceholder.typicode.com/users');
+    return this.http.get('https://thesis-server-icsd14052-54.herokuapp.com/users/');
   }
 
   gitsearch(repo:String, language:String) {
@@ -23,6 +23,19 @@ export class DataService {
     }    
   }
 
+  Login(user: Object): Observable<Object> {
+    console.log(user);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.post<Object>("https://thesis-server-icsd14052-54.herokuapp.com/users/login", user, httpOptions)
+    .pipe(catchError(this.handleError));
+  }
 
 
   registerUser(user: Object): Observable<Object> {

@@ -1,9 +1,26 @@
 <div>
   <h1>Home</h1>
-  <app-register></app-register>
+  <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+  <label>
+    Email:
+    <input type="email" formControlName="email">
+  </label>
+  <label>
+    Password:
+    <input type="password" formControlName="password">
+  </label>
+
+  <input type="submit" value="Send message" class="cta">
+  </form>
+  <h5 *ngIf="result"> {{result.message.email}}</h5>
+  <h5 *ngIf="result"> {{result.message.name}}</h5>
+  <h5 *ngIf="result"> {{result.message.password}}</h5>
+  <h5 *ngIf="result"> {{result.message.surname}}</h5>
+  <h5 *ngIf="result">{{result.message._id}}</h5>
+  <br><br>
   <ul *ngIf="users">
-    <li *ngFor="let user of users">
-      <h5>{{ user.name }} {{ user.username }} </h5>
+    <li *ngFor="let user of users.users">
+      <h5> id:__{{ user._id }} {{ user.name }} {{ user.surname }}  {{ user.email }} {{ user.password }} </h5>
     </li>
   </ul>
 </div>
