@@ -11,7 +11,9 @@ export class HomeComponent implements OnInit {
 
 messageForm: FormGroup;
 users: Object;
-result: Object;
+result: Object = { 
+  "message":{
+    "email":"","name":"","password":"","surname":"",_id:"","message":""}};
 problem: Boolean = null;
 
 constructor(private formBuilder: FormBuilder, private data: DataService) {
