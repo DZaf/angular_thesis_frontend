@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
 messageForm: FormGroup;
 users: Object;
 result: Object;
+status: Object;
 
 constructor(private formBuilder: FormBuilder, private data: DataService) {
 
@@ -32,10 +33,11 @@ onSubmit(){
   }
 
   this.data.Login(userlg)
-      .subscribe(data => {this.result=data; console.log("data"); console.log(data);})           
+      .subscribe(data => {this.result=data; console.log(data);}, error => {this.result=error; console.log(error); })       
 }
 
   ngOnInit() {
+    this.result={ "success":null};
     this.data.getUsers().subscribe(data => {
       this.users = data;
       console.log(this.users);
