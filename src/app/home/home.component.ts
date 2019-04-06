@@ -32,7 +32,7 @@ onSubmit(){
   }
 
   this.data.Login(userlg)
-      .subscribe(data => {this.result=data; console.log(data);})           
+      .subscribe(data => {this.result=data; console.log("data"); console.log(data);})           
 }
 
   ngOnInit() {
