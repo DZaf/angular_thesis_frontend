@@ -15,6 +15,7 @@ result: Object = {
   "message":{
     "email":"","name":"","password":"","surname":"",_id:"","message":""}};
 problem: Boolean = null;
+isproblem:Boolean = null;
 
 constructor(private formBuilder: FormBuilder, private data: DataService) {
 
@@ -35,7 +36,7 @@ onSubmit(){
   }
 
   this.data.Login(userlg)
-      .subscribe(data => {this.result=data; this.problem=true; console.log(data);}, error => {this.result=error; this.problem=false;  console.log(error); })       
+      .subscribe(data => {this.result=data; this.problem=true; console.log(data);}, error => {this.result=error; this.isproblem=true;  console.log(error); })       
 }
 
   ngOnInit() {

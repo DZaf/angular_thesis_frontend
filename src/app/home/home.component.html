@@ -17,7 +17,7 @@
   <h5 *ngIf="problem"> {{result.message.password}}</h5>
   <h5 *ngIf="problem"> {{result.message.surname}}</h5>
   <h5 *ngIf="problem">{{result.message._id}}</h5>
-  <h5 *ngIf="!problem">{{result.message}}</h5>
+  <h5 *ngIf="isproblem">{{result.message}}</h5>
   <br><br>
   <ul *ngIf="users">
     <li *ngFor="let user of users.users">
