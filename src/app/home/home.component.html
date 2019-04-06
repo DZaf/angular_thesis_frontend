@@ -12,12 +12,12 @@
 
   <input type="submit" value="Send message" class="cta">
   </form>
-  <h5 *ngIf="result.success=='true'"> {{result.message.email}}</h5>
-  <h5 *ngIf="result.success=='true'"> {{result.message.name}}</h5>
-  <h5 *ngIf="result.success=='true'"> {{result.message.password}}</h5>
-  <h5 *ngIf="result.success=='true'"> {{result.message.surname}}</h5>
-  <h5 *ngIf="result.success=='true'">{{result.message._id}}</h5>
-  <h5 *ngIf="result.success=='false'">{{result.message}}</h5>
+  <h5 *ngIf="problem"> {{result.message.email}}</h5>
+  <h5 *ngIf="problem"> {{result.message.name}}</h5>
+  <h5 *ngIf="problem"> {{result.message.password}}</h5>
+  <h5 *ngIf="problem"> {{result.message.surname}}</h5>
+  <h5 *ngIf="problem">{{result.message._id}}</h5>
+  <h5 *ngIf="!problem">{{result.message}}</h5>
   <br><br>
   <ul *ngIf="users">
     <li *ngFor="let user of users.users">
