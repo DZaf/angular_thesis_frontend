@@ -9,6 +9,7 @@ import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { GitSearchComponent } from './git-search/git-search.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { GitSearchComponent } from './git-search/git-search.component';
     NavComponent,
     HomeComponent,
     RegisterComponent,
-    GitSearchComponent
+    GitSearchComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
