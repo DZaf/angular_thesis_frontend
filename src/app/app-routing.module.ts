@@ -4,16 +4,17 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { GitSearchComponent } from './git-search/git-search.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
-    path: '', component: HomeComponent
+    path: '', component: HomeComponent, canActivate: [AuthGuard]
   },
   {
     path: 'register', component: RegisterComponent
   },
   {
-    path: 'git-search', component: GitSearchComponent
+    path: 'git-search', component: GitSearchComponent , canActivate: [AuthGuard]
   },
   {
     path: 'login', component: LoginComponent
