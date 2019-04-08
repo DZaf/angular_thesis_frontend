@@ -37,6 +37,19 @@ export class DataService {
     .pipe(catchError(this.handleError));
   }
 
+  Verify(): Observable<Object> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+    let token = {"token":localStorage.getItem('token')}
+
+    return this.http.post<Object>("https://thesis-server-icsd14052-54.herokuapp.com/users/verify", token, httpOptions)
+    .pipe(catchError(this.handleError));
+  }
+
 
   registerUser(user: Object): Observable<Object> {
     console.log(user);
@@ -51,6 +64,10 @@ export class DataService {
     return this.http.post<Object>("https://thesis-server-icsd14052-54.herokuapp.com/users/register", user, httpOptions)
     .pipe(catchError(this.handleError));
 
+  }
+
+  loggedIn(){
+    return !!localStorage.getItem('token');
   }
 
   private handleError(error: HttpErrorResponse) {
