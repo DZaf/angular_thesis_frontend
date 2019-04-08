@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
+import {Router} from'@angular/router';
 
 @Component({
   selector: 'app-git-search',
@@ -14,12 +15,21 @@ export class GitSearchComponent implements OnInit {
   errorResponse: Object;
   reposi:Object;
 
-  constructor(private formBuilder: FormBuilder, private data: DataService) {
+  constructor(private formBuilder: FormBuilder, private data: DataService, private _router: Router) {
 
     this.messageForm = this.formBuilder.group({
       repo: ['', Validators.required],
       language: [''],
     })
+  }
+
+  ngOnInit() {
+
+    this.data.Verify()
+    .subscribe(result =>      
+      {},
+      error => { this._router.navigate(['/login'])} );
+
   }
 
   onSubmit(){
@@ -37,7 +47,8 @@ export class GitSearchComponent implements OnInit {
         },
       error => {this.errorResponse = error; console.log(error); } );
   }
-  ngOnInit() {}
+
+  
 
 
 }
