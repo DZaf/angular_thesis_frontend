@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { GitSearchComponent } from './git-search/git-search.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,9 @@ const routes: Routes = [
   },
   {
     path: 'git-search', component: GitSearchComponent
+  },
+  {
+    path: 'login', component: LoginComponent
   }
 ];
 
