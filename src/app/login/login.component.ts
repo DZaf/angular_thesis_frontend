@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Router} from'@angular/router';
+import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 
 
@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   messageForm: FormGroup;
   users: Object;
   result: any;
+  submitted = false;
   // = { message : Object };
 
   // { "email":"","name":"","password":"","surname":"",_id:"","message":"","token":{"token":""}}
@@ -31,6 +32,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    
+    this.submitted = true;
 
     const email = this.messageForm.controls.email.value;
     const password = this.messageForm.controls.password.value;

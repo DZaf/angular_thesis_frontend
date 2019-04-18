@@ -15,3 +15,32 @@ input.ng-dirty.ng-invalid {
     border-style: solid;
     border-width: medium;
 }
+.error {
+    margin-top: -20px;
+    background: yellow;
+    padding: .5em;
+    display: inline-block;
+    font-size: .9em;
+    margin-bottom: 20px;
+}
+
+input, textarea {
+    display:block;
+    width: 50%;
+    margin-bottom: 20px;
+    padding: 1em;
+}
+label{
+    display: block;
+}
+.results {
+    margin-top: 50px;
+}
+
+strong{
+    display: block;
+}
+span {
+    margin-bottom: 20px;
+    display: block;
+}
