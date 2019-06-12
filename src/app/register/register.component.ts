@@ -33,12 +33,16 @@ export class RegisterComponent implements OnInit {
       return;
     }
     this.success = true;
+    const name = this.messageForm.controls.name.value;
+    const surname = this.messageForm.controls.surname.value;
+    const email = this.messageForm.controls.email.value;
+    const password = this.messageForm.controls.password.value;
 
     let user = {
-      "name": this.messageForm.controls.name.value,
-      "surname": this.messageForm.controls.surname.value,
-      "email": this.messageForm.controls.email.value,
-      "password": this.messageForm.controls.password.value
+      "name": name,
+      "surname": surname,
+      "email": email,
+      "password": password
     }
 
     this.data.registerUser(user)

@@ -41,8 +41,3 @@ span {
     margin-bottom: 20px;
     display: block;
 }
-input.ng-dirty.ng-invalid {
-    border: rgb(214, 72, 6);
-    border-style: solid;
-    border-width: medium;
-}
