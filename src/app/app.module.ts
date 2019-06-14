@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { GitSearchComponent } from './git-search/git-search.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AuthGuard } from './auth.guard';
     HomeComponent,
     RegisterComponent,
     GitSearchComponent,
-    LoginComponent
+    LoginComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

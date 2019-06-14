@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { GitSearchComponent } from './git-search/git-search.component';
 import { LoginComponent } from './login/login.component';
+import { SearchComponent } from './search/search.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
@@ -18,6 +19,9 @@ const routes: Routes = [
   },
   {
     path: 'login', component: LoginComponent
+  },
+  {
+    path: 'search', component: SearchComponent
   }
 ];
 
