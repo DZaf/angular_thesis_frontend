@@ -2,27 +2,37 @@
   <div class="row">
     <h4 class="title">Search code, web services or apis</h4>
   </div><br>
-  <form [formGroup]="messageForm">
+  <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col-3"></div>
       <div class="col-6">
         <div style="margin-left: 50px">
-          <button class="btn btn-info sConf" (click)="onClick('code')">code</button>
-          <button class="btn btn-info sConf" (click)="onClick('web_apis')">web services / apis</button>
-          <button class="btn btn-info sConf" (click)="onClick('everywere')">everywere</button>
+          <button class="btn sConf" [ngClass]="code ? 'btn-primary' : 'btn-info'" type="button" (click)="onClick('code')">code</button>
+          <button class="btn sConf" [ngClass]="web_apis ? 'btn-primary' : 'btn-info'" type="button" (click)="onClick('web_apis')">web services / apis</button>
+          <button class="btn sConf" [ngClass]="everywere ? 'btn-primary' : 'btn-info'" type="button" (click)="onClick('everywere')">everywere</button>
         </div>
-        <input type="email" formControlName="keyword" class="form-control" placeholder="search...">
+        <input type="text" formControlName="keyword" class="form-control" placeholder="search...">
+        <div *ngIf="code">
+          <input type="text" formControlName="language" class="form-control" placeholder="enter language">
+        </div>
       </div>
-      <div class="col-3"></div>
+      <div class="col-3"><input type="submit" value="Search" class="form-control"></div>
+      
     </div>
 
 
     <div class="row">
       <div *ngIf="code">
         <p>searching for code</p>
+        <div *ngIf="codeResponse">
+          <p>Found {{codeResponse.repos.length}} results</p>
+        </div>
       </div>
       <div *ngIf="web_apis">
         <p>searching for web services and apis</p>
+        <div *ngIf="apisResponse">
+          <p>Found {{apisResponse.length}} results</p>
+        </div>
       </div>
       <div *ngIf="everywere">
         <p>searching everywere</p>
