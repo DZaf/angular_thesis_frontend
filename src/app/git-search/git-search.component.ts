@@ -40,7 +40,7 @@ export class GitSearchComponent implements OnInit {
     const repo = this.messageForm.controls.repo.value;
     const language = this.messageForm.controls.language.value;
 
-    this.data.gitsearch(repo,language)
+    this.data.gitsearch(repo,language) 
     .subscribe(result =>
       
       {this.response=result; console.log(result);;
