@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
   messageForm: FormGroup;
+  spinner = false;
   code = true;
   web_apis = false;
   everywere = false;
@@ -55,6 +56,9 @@ export class SearchComponent implements OnInit {
 
 
   onSubmit() {
+    delete this.apisResponse;
+    this.spinner = true;
+    delete this.codeResponse;
 
     if (this.code) {
       console.log("submiting form for Code search");
@@ -66,6 +70,7 @@ export class SearchComponent implements OnInit {
     .subscribe(result =>
       
       {
+        this.spinner = false;
         this.codeResponse=result; 
         console.log(result);;
         },
@@ -84,8 +89,9 @@ export class SearchComponent implements OnInit {
       this.tags.push(this.keyword);
 
       this.data.apiSearch(this.email,this.tags).subscribe(result => {
+        this.spinner = false;
         this.apisResponse = result;
-        console.log(result);
+        console.log(this.apisResponse);
       })
 
     } else {
