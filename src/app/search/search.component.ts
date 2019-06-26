@@ -85,13 +85,14 @@ export class SearchComponent implements OnInit {
       
       this.keyword = this.messageForm.controls.keyword.value;
       console.log(this.keyword);
-
+      
       this.tags.push(this.keyword);
 
       this.data.apiSearch(this.email,this.tags).subscribe(result => {
         this.spinner = false;
         this.apisResponse = result;
         console.log(this.apisResponse);
+        this.tags = [];
       })
 
     } else {
