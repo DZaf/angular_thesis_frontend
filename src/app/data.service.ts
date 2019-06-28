@@ -23,6 +23,16 @@ export class DataService {
     }    
   }
 
+
+apiSearch (email: any,tags: Array<String>){
+  var query = "?tags=";
+  for (let i=0;i<tags.length;i++){
+    query = query + "&tags=" + tags[i];
+  }
+  return this.http.get(`https://thesis-server-icsd14052-54.herokuapp.com/search/${email}/?tags=${query}`);
+}
+
+
   Login(user: Object): Observable<Object> {
     console.log(user);
 
@@ -69,6 +79,8 @@ export class DataService {
   loggedIn(){
     return !!localStorage.getItem('token');
   }
+
+
 
   private handleError(error: HttpErrorResponse) {
     
