@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -9,9 +10,14 @@ export class NavComponent implements OnInit {
 
 title:string = "My first Angular app";
 
-  constructor() { }
+  constructor(private _router: Router) { }
 
   ngOnInit() {
+  }
+
+  logout(){
+    localStorage.clear();
+    this._router.navigate(['/login']);
   }
 
 }
