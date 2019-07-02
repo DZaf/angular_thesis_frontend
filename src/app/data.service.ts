@@ -25,7 +25,7 @@ export class DataService {
 
 
 apiSearch (email: any,tags: Array<String>){
-  var query = "?tags=";
+  var query = "";
   for (let i=0;i<tags.length;i++){
     query = query + "&tags=" + tags[i];
   }

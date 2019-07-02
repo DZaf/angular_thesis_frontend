@@ -3,12 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  showMore = false;
   messageForm: FormGroup;
   spinner = false;
   code = true;
@@ -51,6 +53,22 @@ export class SearchComponent implements OnInit {
     }
 
 
+  }
+
+  show_more($event, div_class){
+console.log($event.currentTarget);
+   let showMoreDiv = document.getElementById(div_class) ;
+   console.log(showMoreDiv);
+   if(showMoreDiv.style.display == "flex"){
+    showMoreDiv.style.display = "none";
+    $event.currentTarget.innerHTML = "show more";
+   }else{
+    showMoreDiv.style.display = "flex";
+    $event.currentTarget.innerHTML = "show less";
+   }
+   
+     
+    // .style.display = "block"; 
   }
 
 
