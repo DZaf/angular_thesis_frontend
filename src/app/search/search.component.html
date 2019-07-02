@@ -69,17 +69,57 @@
           </div>
         </div>
       </div>
-
+                        <!-- EMFANISI GIA API -->
       <div *ngIf="web_apis">
         <p>searching for web services and apis</p>
         <div *ngIf="apisResponse">
           <p>Found {{apisResponse.length}} results</p>
 
-          <ul>
             <div *ngFor="let api of apisResponse">
-              <li>{{api.api.name}}</li>
+
+              <div class="apiContainer">
+                <div class="row">
+                  <div class="col-2">
+                    <img src="{{api.api.image}}" width="100" height="100">
+                  </div>
+                  <div class="col-5">
+                    <ul class="apiUl">
+                      <li>name: {{api.api.name}}</li>
+                      <li>created at: {{api.api.created_at}}</li>
+                    </ul>
+                  </div>
+                  <div class="col-5">
+                    <ul class="apiUl">
+                      <li>endpoint: <a href="{{api.api.endpoint}}">{{api.api.endpoint}}</a></li>
+                      <li>homepage: <a href="{{api.api.homepage}}">{{api.api.homepage}}</a></li>
+                    </ul>
+                    </div>
+                </div>
+                  <div id="{{api.api.slug}}" style="display: none" class="row">
+                      <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                          <ul class="apiUl">
+                            <li>name: {{api.api.name}}</li>
+                            <li>created at: {{api.api.created_at}}</li>
+                          </ul>
+                        </div>
+                        <div class="col-5">
+                          <ul class="apiUl">
+                            <li>endpoint: <a href="{{api.api.endpoint}}">{{api.api.endpoint}}</a></li>
+                            <li>homepage: <a href="{{api.api.homepage}}">{{api.api.homepage}}</a></li>
+                          </ul>
+                          </div>
+                  </div>
+                <div class="row">
+                  <div class="col-12 text-center">
+                      <a style=" cursor: pointer; " (click)="show_more($event, api.api.slug)">show more</a>
+                  </div>
+                  
+                </div>
+              </div>
+              <br>
             </div>
-          </ul>
 
 
         </div>
