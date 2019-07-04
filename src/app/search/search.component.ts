@@ -47,7 +47,7 @@ export class SearchComponent implements OnInit {
     }
     else if (input == "web_apis") {
       this.code = false; this.web_apis = true; this.everywere = false;
-      
+
     } else {
       this.code = false; this.web_apis = false; this.everywere = true;
     }
@@ -55,19 +55,22 @@ export class SearchComponent implements OnInit {
 
   }
 
-  show_more($event, div_class){
-console.log($event.currentTarget);
-   let showMoreDiv = document.getElementById(div_class) ;
-   console.log(showMoreDiv);
-   if(showMoreDiv.style.display == "flex"){
-    showMoreDiv.style.display = "none";
-    $event.currentTarget.innerHTML = "show more";
-   }else{
-    showMoreDiv.style.display = "flex";
-    $event.currentTarget.innerHTML = "show less";
-   }
-   
-     
+  show_more($event, div_class) {
+
+    String(div_class).replace(/./, ' ');
+    String(div_class).replace(/ /, '-');
+    console.log(div_class);
+    let showMoreDiv = document.getElementById(div_class);
+    console.log(showMoreDiv);
+    if (showMoreDiv.style.display == "flex") {
+      showMoreDiv.style.display = "none";
+      $event.currentTarget.innerHTML = "show more";
+    } else {
+      showMoreDiv.style.display = "flex";
+      $event.currentTarget.innerHTML = "show less";
+    }
+
+
     // .style.display = "block"; 
   }
 
@@ -84,29 +87,30 @@ console.log($event.currentTarget);
       this.keyword = this.messageForm.controls.keyword.value;
       const language = this.messageForm.controls.language.value;
 
-      this.data.gitsearch(this.keyword,language) 
-    .subscribe(result =>
-      
-      {
-        this.spinner = false;
-        this.codeResponse=result; 
-        console.log(result);;
+      this.data.gitsearch(this.keyword, language)
+        .subscribe(result => {
+          this.spinner = false;
+          this.codeResponse = result;
+          console.log(result);;
         },
-      error => {
-        //this.errorResponse = error; 
-        console.log(error); 
-      } );
+          error => {
+            //this.errorResponse = error; 
+            console.log(error);
+          });
 
     }
     else if (this.web_apis) {
       console.log("submiting form for  Apis search");
-      
-      this.keyword = this.messageForm.controls.keyword.value;
-      console.log(this.keyword);
-      
-      this.tags.push(this.keyword);
 
-      this.data.apiSearch(this.email,this.tags).subscribe(result => {
+      this.keyword = this.messageForm.controls.keyword.value;
+      //console.log(this.keyword);
+
+      //this.tags.push(this.keyword);
+      this.tags.push(this.keyword.split(/(\s+)/).filter( e => e.trim().length > 0));
+      console.log(this.tags);
+      //return 0 ;
+
+      this.data.apiSearch(this.email, this.tags).subscribe(result => {
         this.spinner = false;
         this.apisResponse = result;
         console.log(this.apisResponse);
