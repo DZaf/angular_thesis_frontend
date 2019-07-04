@@ -26,9 +26,12 @@ export class DataService {
 
 apiSearch (email: any,tags: Array<String>){
   var query = "";
-  for (let i=0;i<tags.length;i++){
-    query = query + "&tags=" + tags[i];
+  for (let i=0;i<tags[0].length;i++){
+
+    query = query + "&tags=" + tags[0][i];
+  
   }
+  console.log(query);
   return this.http.get(`https://thesis-server-icsd14052-54.herokuapp.com/search/${email}/?tags=${query}`);
 }
 
