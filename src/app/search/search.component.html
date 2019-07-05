@@ -15,7 +15,7 @@
             (click)="onClick('everywere')">everywere</button>
         </div>
         <input type="text" formControlName="keyword" class="form-control" placeholder="ender keyword">
-        <div *ngIf="code">
+        <div *ngIf="code || everywere">
           <input type="text" formControlName="language" class="form-control" placeholder="enter language">
         </div>
       </div>
@@ -70,7 +70,7 @@
         </div>
       </div>
       <!-- EMFANISI GIA API -->
-      <div *ngIf="web_apis">
+      <div *ngIf="web_apis || everywere">
         <!-- <p>searching for web services and apis</p> -->
         <!-- ADVANCED SEARCH START -->
         <button type="button" class="btn btn-info" (click)="filters()">Advanced search</button>
@@ -220,10 +220,6 @@
 
         </div>
       </div>
-      <div *ngIf="everywere">
-        <p>searching everywere</p>
-      </div>
-     
   </form>
 
   <div class="row ">
