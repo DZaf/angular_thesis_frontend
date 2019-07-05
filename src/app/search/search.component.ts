@@ -19,6 +19,8 @@ export class SearchComponent implements OnInit {
   codeResponse: any;
   apisResponse: any;
   keyword: String;
+  adv_search = false;
+  adv_search_data: any = {};
   tags = [];
   /* edo to mail tou xristi */
   email: any = localStorage.getItem('email');
@@ -26,7 +28,18 @@ export class SearchComponent implements OnInit {
 
     this.messageForm = this.formBuilder.group({
       keyword: ['', Validators.required],
-      language: ['', Validators.required]
+      language: ['', Validators.required],
+      provider: [''],
+      category: [''],
+      ssl: [''],
+      doc: [''],
+      auth_model: [''],
+      created_after: [''],
+      swagger: [''],
+      license: [''],
+      protocol: [''],
+      req_format: [''],
+      res_format: [''],
     })
 
 
@@ -55,6 +68,14 @@ export class SearchComponent implements OnInit {
 
   }
 
+  filters() {
+    if (!this.adv_search) {
+      this.adv_search = true;
+    } else {
+      this.adv_search = false;
+    }
+  }
+
   show_more($event, div_class) {
 
     String(div_class).replace(/./, ' ');
@@ -80,12 +101,15 @@ export class SearchComponent implements OnInit {
     delete this.apisResponse;
     this.spinner = true;
     delete this.codeResponse;
+    //console.log(this.messageForm.controls)
+
 
     if (this.code) {
       console.log("submiting form for Code search");
 
       this.keyword = this.messageForm.controls.keyword.value;
       const language = this.messageForm.controls.language.value;
+
 
       this.data.gitsearch(this.keyword, language)
         .subscribe(result => {
@@ -106,11 +130,17 @@ export class SearchComponent implements OnInit {
       //console.log(this.keyword);
 
       //this.tags.push(this.keyword);
-      this.tags.push(this.keyword.split(/(\s+)/).filter( e => e.trim().length > 0));
+      this.tags.push(this.keyword.split(/(\s+)/).filter(e => e.trim().length > 0));
+
+      Object.entries(this.messageForm.controls).forEach(
+
+        ([key, value]) => this.adv_search_data[key] = value.value //console.log(key, value.value)
+      );
       console.log(this.tags);
+      console.log(this.adv_search_data);
       //return 0 ;
 
-      this.data.apiSearch(this.email, this.tags).subscribe(result => {
+      this.data.apiSearch(this.email, this.tags, this.adv_search_data).subscribe(result => {
         this.spinner = false;
         this.apisResponse = result;
         console.log(this.apisResponse);
