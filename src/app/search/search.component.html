@@ -31,7 +31,7 @@
     <!-- <div class="row"> -->
 
       <div *ngIf="code">
-        <p>searching for code</p>
+        <!-- <p>searching for code</p> -->
 
         <div *ngIf="codeResponse">
           <p>Found {{codeResponse.repos.length}} results</p>
@@ -71,7 +71,82 @@
       </div>
       <!-- EMFANISI GIA API -->
       <div *ngIf="web_apis">
-        <p>searching for web services and apis</p>
+        <!-- <p>searching for web services and apis</p> -->
+        <!-- ADVANCED SEARCH START -->
+        <button type="button" class="btn btn-info" (click)="filters()">Advanced search</button>
+        <div *ngIf="adv_search">
+          <div class="row">
+            <div class="col-2">
+              <label for="provider">Provider</label>
+              <input type="text" name="provider" placeholder="provider" class="form-control" formControlName="provider">
+            </div>
+            <div class="col-2">
+              <label for="category">Category</label>
+              <select class="form-control" name="category" id="" formControlName="category"></select>
+            </div>
+            <div class="col-2">
+              <label for="ssl">SSL Suport</label>
+              <select class="form-control" name="ssl" id="" formControlName="ssl">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="col-2">
+              <label for="documentation">Documentation</label>
+              <select class="form-control" name="documentation" id="" formControlName="doc">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="col-2">
+              <label for="auth_model">Authetication Model</label>
+              <select class="form-control" name="auth_model" id="" formControlName="auth_model">
+                
+              </select>
+            </div>
+            <div class="col-2">
+              <label for="created_after">Created after</label>
+              <input type="date" class="form-control" name="created_after" formControlName="created_after">
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-2">
+                <label for="swagger">Swagger</label>
+                <select class="form-control" name="swagger" id="" formControlName="swagger">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+              </div>
+              <div class="col-2">
+                <label for="license">License</label>
+                <select class="form-control" name="license" id="" formControlName="license">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+              </div>
+              <div class="col-2">
+                <label for="protocol">Protocol</label>
+                <select class="form-control" name="protocol" id="" formControlName="protocol">
+                  
+                </select>
+              </div>
+              <div class="col-2">
+                <label for="data_req_format">Request Format</label>
+                <select class="form-control" name="data_req_format" id="" formControlName="req_format">
+                </select>
+              </div>
+              <div class="col-2">
+                  <label for="data_res_format">Response Format</label>
+                  <select class="form-control" name="data_res_format" id="" formControlName="res_format">
+                  </select>
+              </div>
+              <div class="col-2">
+  
+              </div>
+            </div>
+        </div>
+        <br>
+        <!-- ADVANCED SEARCH FINISH -->
         <div *ngIf="apisResponse">
           <p>Found {{apisResponse.length}} results</p>
 

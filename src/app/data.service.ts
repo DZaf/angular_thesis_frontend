@@ -24,7 +24,7 @@ export class DataService {
   }
 
 
-apiSearch (email: any,tags: Array<String>){
+apiSearch (email: any,tags: Array<String>,adv_search_data: Object){
   var query = "";
   for (let i=0;i<tags[0].length;i++){
 
