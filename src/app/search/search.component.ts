@@ -29,17 +29,17 @@ export class SearchComponent implements OnInit {
     this.messageForm = this.formBuilder.group({
       keyword: ['', Validators.required],
       language: ['', Validators.required],
-      provider: [''],
+      hasProvider: [''],
       category: [''],
-      ssl: [''],
-      doc: [''],
+      SSLSupport: [''],
+      doc_url: [''],
       auth_model: [''],
       created_after: [''],
       swagger: [''],
-      license: [''],
-      protocol: [''],
-      req_format: [''],
-      res_format: [''],
+      license_url: [''],
+      hasProtocol: [''],
+      hasSupportedReqFormat: [''],
+      hasSupportedResFormat: [''],
     })
 
 
@@ -95,6 +95,10 @@ export class SearchComponent implements OnInit {
     // .style.display = "block"; 
   }
 
+  getText(label){
+    return label.replace(/^.*\//g, '');
+  };
+
 
 
   onSubmit() {
@@ -134,7 +138,7 @@ export class SearchComponent implements OnInit {
 
       Object.entries(this.messageForm.controls).forEach(
 
-        ([key, value]) => this.adv_search_data[key] = value.value //console.log(key, value.value)
+        ([key, value]) =>{ if(key!="keyword"){ this.adv_search_data[key] = value.value} }//console.log(key, value.value)
       );
       console.log(this.tags);
       console.log(this.adv_search_data);
