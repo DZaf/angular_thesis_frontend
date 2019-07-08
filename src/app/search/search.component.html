@@ -15,7 +15,7 @@
             (click)="onClick('everywere')">everywere</button>
         </div>
         <input type="text" formControlName="keyword" class="form-control" placeholder="ender keyword">
-        <div *ngIf="code">
+        <div *ngIf="code || everywere">
           <input type="text" formControlName="language" class="form-control" placeholder="enter language">
         </div>
       </div>
@@ -28,10 +28,10 @@
       </div>
     </div>
 
-    <div class="row">
-        
+    <!-- <div class="row"> -->
+
       <div *ngIf="code">
-        <p>searching for code</p>
+        <!-- <p>searching for code</p> -->
 
         <div *ngIf="codeResponse">
           <p>Found {{codeResponse.repos.length}} results</p>
@@ -69,32 +69,164 @@
           </div>
         </div>
       </div>
-
-      <div *ngIf="web_apis">
-        <p>searching for web services and apis</p>
+      <!-- EMFANISI GIA API -->
+      <div *ngIf="web_apis || everywere">
+        <!-- <p>searching for web services and apis</p> -->
+        <!-- ADVANCED SEARCH START -->
+        <button type="button" class="btn btn-info" (click)="filters()">Advanced search</button>
+        <div *ngIf="adv_search">
+          <div class="row">
+            <div class="col-2">
+              <label for="provider">Provider</label>
+              <input type="text" name="provider" placeholder="provider" class="form-control" formControlName="provider">
+            </div>
+            <div class="col-2">
+              <label for="category">Category</label>
+              <select class="form-control" name="category" id="" formControlName="category"></select>
+            </div>
+            <div class="col-2">
+              <label for="ssl">SSL Suport</label>
+              <select class="form-control" name="ssl" id="" formControlName="ssl">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="col-2">
+              <label for="documentation">Documentation</label>
+              <select class="form-control" name="documentation" id="" formControlName="doc">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="col-2">
+              <label for="auth_model">Authetication Model</label>
+              <select class="form-control" name="auth_model" id="" formControlName="auth_model">
+                
+              </select>
+            </div>
+            <div class="col-2">
+              <label for="created_after">Created after</label>
+              <input type="date" class="form-control" name="created_after" formControlName="created_after">
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-2">
+                <label for="swagger">Swagger</label>
+                <select class="form-control" name="swagger" id="" formControlName="swagger">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+              </div>
+              <div class="col-2">
+                <label for="license">License</label>
+                <select class="form-control" name="license" id="" formControlName="license">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+              </div>
+              <div class="col-2">
+                <label for="protocol">Protocol</label>
+                <select class="form-control" name="protocol" id="" formControlName="protocol">
+                  
+                </select>
+              </div>
+              <div class="col-2">
+                <label for="data_req_format">Request Format</label>
+                <select class="form-control" name="data_req_format" id="" formControlName="req_format">
+                </select>
+              </div>
+              <div class="col-2">
+                  <label for="data_res_format">Response Format</label>
+                  <select class="form-control" name="data_res_format" id="" formControlName="res_format">
+                  </select>
+              </div>
+              <div class="col-2">
+  
+              </div>
+            </div>
+        </div>
+        <br>
+        <!-- ADVANCED SEARCH FINISH -->
         <div *ngIf="apisResponse">
           <p>Found {{apisResponse.length}} results</p>
 
-          <ul>
-            <div *ngFor="let api of apisResponse">
-              <li>{{api.api.name}}</li>
-            </div>
-          </ul>
+          <div *ngFor="let api of apisResponse">
+              <div class="apiContainer">
+                <div class="row">
+                  <div class="col-2">
+                    <img src="{{api.api.image}}" width="100" height="100">
+                  </div>
+                  <div class="col-5">
+                    <ul class="apiUl">
+                      <li> <p>Name:</p>  {{api.api.name || ' unknown '}}</li>
+                      <li> <p>Created at:</p>  {{api.api.created_at || ' unknown '}}</li>
+                      <li> <p>Provider:</p>  {{api.api.provider || ' unknown '}}</li>
+                    </ul>
+                  </div>
+                  <div class="col-5">
+                    <ul class="apiUl">
+                      <li> <p>Endpoint:</p>  <a href="{{api.api.endpoint}}">{{api.api.endpoint || ' unknown '}}</a></li>
+                      <li> <p>Homepage:</p>  <a href="{{api.api.homepage}}">{{api.api.homepage || ' unknown '}}</a></li>
+                      <li> <p>Category:</p>  <div *ngFor="let cat of api.api.hasCategory"> <li>{{cat || ' unknown '}}</li> </div></li>
+                    </ul>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-12 text-center">
+                      <ul class="apiUl">
+                          <li> <p>Description:</p>  {{api.api.description || ' unknown '}}</li>
+                        </ul>
+                  </div>
+                  
+                </div>
+                
+                <div id="{{api.api.slug || api.api.name}}" style="display: none" class="row">
+                  <div class="col-2">
+                  </div>
+                  <div class="col-5">
+                    <ul class="apiUl">
+                      <li> <p>License:</p>  {{api.api.license_url || ' unknown '}}</li>
+                      <li><p>Updated at:</p> {{api.api.update_at || ' unknown '}}</li>
+                      <li><p>Authetication Model:</p> {{api.api.auth_model || ' unknown '}}</li>
+                      <li><p>Response Format:</p>   <div *ngFor="let res of api.api.hasSupportedResFormat"> <li>{{res || ' unknown '}}</li> </div></li>
+                      <li><p>Protocol:</p> {{api.api.hasProtocol || ' unknown '}}</li>
+                    </ul>
+                  </div>
+                  <div class="col-5">
+                    <ul class="apiUl">
+                      <li><p>Swagger:</p> <a href="{{api.api.swagger_url}}">{{api.api.swagger_url || ' unknown '}}</a></li>
+                      <li><p>SSL Support:</p> {{api.api.ssslSupport? ' Yes ' : ' No '}}</li>
+                      <li><p>Request Format:</p>   <div *ngFor="let req of api.api.hasSupportedReqFormat"> <li>{{req || ' unknown '}}</li> </div></li>
+                      <li><p>Documentation:</p> <a href="api.api.doc_url">{{api.api.doc_url || ' unknown '}}</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <div *ngIf="api.api.slug;else templateName">
+                        <a style=" cursor: pointer; " (click)="show_more($event, api.api.slug)">show more</a>
+                    </div>
+                    <ng-template #templateName>
+                        <a style=" cursor: pointer; " (click)="show_more($event, api.api.name)">show more</a>
+                    </ng-template>
+                  </div>
+
+                </div>
+              </div>
+            <br>
+          </div>
 
 
         </div>
       </div>
-      <div *ngIf="everywere">
-        <p>searching everywere</p>
-      </div>
-    </div>
   </form>
 
   <div class="row ">
-      <div class="col-md-12 text-center">
-          <div [ngClass]="spinner ? 'loader' : '' "></div>
-      </div>
+    <div class="col-md-12 text-center">
+      <div [ngClass]="spinner ? 'loader' : '' "></div>
     </div>
+  </div>
 
 
 </div>
