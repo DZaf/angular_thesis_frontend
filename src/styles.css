@@ -22,9 +22,9 @@ a {
   grid-template-columns: 30% auto;
 }
 
-a {
+/* a {
   color: white;
-}
+} */
 
 section {
   width: 80%;

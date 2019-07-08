@@ -23,6 +23,9 @@ a {
   text-transform: uppercase;
   font-size: .8em;
 }
+a {
+  color: white;
+}
 
 a:hover {
   background: #8E2BFF;
