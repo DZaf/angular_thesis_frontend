@@ -47,7 +47,7 @@ export class DataService {
     //console.log(query);
     
     console.log(`https://thesis-server-icsd14052-54.herokuapp.com/search/${email}/${query}`);
-    return this.http.get(`https://thesis-server-icsd14052-54.herokuapp.com/search/${email}/${query}`);
+    return this.http.get(`https://thesis-server-icsd14052-54.herokuapp.com/search/${email}/${query}`).pipe(catchError(this.handleError));
   }
 
 
