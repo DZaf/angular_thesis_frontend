@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
+import * as A from 'jquery';
 
 
 @Component({
@@ -16,8 +17,14 @@ export class SearchComponent implements OnInit {
   code = true;
   web_apis = false;
   everywere = false;
+  multisearch = true;
   codeResponse: any;
   apisResponse: any;
+  errors=false;
+  errorMessage="";
+  openModal=false;
+  tree:any;
+  //everywhereResponse: any;
   keyword: String;
   adv_search = false;
   adv_search_data: any = {};
@@ -54,15 +61,19 @@ export class SearchComponent implements OnInit {
   }
 
   onClick(input) {
-
+    delete this.codeResponse;
+    delete this.apisResponse;
+    this.errors=false;
     if (input == "code") {
       this.code = true; this.web_apis = false; this.everywere = false;
     }
     else if (input == "web_apis") {
+
       this.code = false; this.web_apis = true; this.everywere = false;
 
     } else {
       this.code = false; this.web_apis = false; this.everywere = true;
+      this.multisearch = false;
     }
 
 
@@ -95,42 +106,56 @@ export class SearchComponent implements OnInit {
     // .style.display = "block"; 
   }
 
-  getText(label){
-    return label.replace(/^.*\//g, '');
+  getText(label) {
+    if (label) {
+      return label.replace(/^.*\//g, '');
+    }
+    return
   };
 
 
 
   onSubmit() {
+    this.errors=false;
+    console.log(this.errors);
+
     delete this.apisResponse;
     this.spinner = true;
     delete this.codeResponse;
     //console.log(this.messageForm.controls)
 
 
-    if (this.code) {
+    if (this.code || this.everywere) {
       console.log("submiting form for Code search");
 
       this.keyword = this.messageForm.controls.keyword.value;
       const language = this.messageForm.controls.language.value;
-
+      if (this.everywere) {
+        this.multisearch = false;
+      }
 
       this.data.gitsearch(this.keyword, language)
         .subscribe(result => {
-          this.spinner = false;
+          //this.spinner = false;
+          if (this.multisearch) {
+            this.spinner = false;
+          }
           this.codeResponse = result;
           console.log(result);;
         },
           error => {
-            //this.errorResponse = error; 
-            console.log(error);
+            console.log(error.message);
+        this.errorMessage=error.message
+        this.errors=true;
+        this.spinner = false;
           });
 
     }
-    else if (this.web_apis) {
+    if (this.web_apis || this.everywere) {
       console.log("submiting form for  Apis search");
 
       this.keyword = this.messageForm.controls.keyword.value;
+    
       //console.log(this.keyword);
 
       //this.tags.push(this.keyword);
@@ -138,7 +163,7 @@ export class SearchComponent implements OnInit {
 
       Object.entries(this.messageForm.controls).forEach(
 
-        ([key, value]) =>{ if(key!="keyword"){ this.adv_search_data[key] = value.value} }//console.log(key, value.value)
+        ([key, value]) => { if (key != "keyword") { this.adv_search_data[key] = value.value } }//console.log(key, value.value)
       );
       console.log(this.tags);
       console.log(this.adv_search_data);
@@ -146,20 +171,39 @@ export class SearchComponent implements OnInit {
 
       this.data.apiSearch(this.email, this.tags, this.adv_search_data).subscribe(result => {
         this.spinner = false;
+        if (this.everywere) {
+          this.multisearch = true;
+        }
+        if (this.multisearch) {
+          this.spinner = false;
+        }
         this.apisResponse = result;
         console.log(this.apisResponse);
         this.tags = [];
+      }, error => {
+        console.log(error.message);
+        this.errorMessage=error.message
+        this.errors=true;
+        this.spinner = false;
+        this.tags = [];
       })
 
-    } else {
-      console.log("submiting form for all");
-
     }
+  }
 
+  openModals(trees){
+    this.openModal=true;
+    this.tree=trees;
+    A("#myModal").modal('show');
+  }
 
+  closeModals(){
+    this.openModal=false;
+    delete this.tree;
+    A("#myModal").modal('hide');
   }
 
 
-
-
 }
+
+   
