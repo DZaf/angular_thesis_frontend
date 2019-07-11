@@ -3,7 +3,7 @@
     <h4 class="title">Search code, web services or apis</h4>
   </div><br>
   <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
-    <div class="row">
+    <div id="top" class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6">
         <div style="margin-left: 50px">
@@ -140,227 +140,208 @@
         </div>
       </div>
       <br>
-
-
     </div>
-    <!-- <div class="row"> -->
-    <!-- EMFANISI GIA API -->
-    <div *ngIf="web_apis || everywere">
-      <!-- <p>searching for web services and apis</p> -->
-      <!-- ADVANCED SEARCH START -->
+  </form>
+  <div id="myBtn">
+      <button style="margin-right: 5px " *ngIf="everywere && apisResponse" (click)="scroll('apiResults')" class="btn btn-primary"  title="Go to top">API</button>
+    <button style="display: inline"  *ngIf="everywere && apisResponse" (click)="scroll('codeResults')" class="btn btn-primary"  title="Go to top">Github</button>
+    
+  </div>
+  
+  <button *ngIf="!everywere && (apisResponse || codeResponse)" (click)="scroll('top')" class="btn btn-primary" id="myBtn2" title="Go to top">top</button>
+  
+  <!-- <div class="row"> -->
+  <!-- EMFANISI GIA API -->
+  <div *ngIf="web_apis || everywere">
+    <!-- <p>searching for web services and apis</p> -->
+    <!-- ADVANCED SEARCH START -->
 
-      <!-- ADVANCED SEARCH FINISH -->
-      <div id="apiResults" *ngIf="apisResponse && multisearch">
-        <p>Found {{apisResponse.length}} APIs</p>
+    <!-- ADVANCED SEARCH FINISH -->
+    <div id="apiResults" *ngIf="apisResponse && multisearch">
+      <p>Found {{apisResponse.length}} APIs</p>
 
-        <div *ngFor="let api of apisResponse">
-          <div class="apiContainer">
-            <div class="row">
-              <div class="col-2">
-                <img src="{{api.api.image || 'http://www.sclance.com/pngs/no-image-png/no_image_png_935227.png'}}"
-                  onError="this.src='http://www.sclance.com/pngs/no-image-png/no_image_png_935227.png'" width="100"
-                  height="100">
-              </div>
-              <div class="col-5">
-                <ul class="apiUl">
-                  <li>
-                    <p>Name:</p> {{api.api.name || ' unknown '}}
-                  </li>
-                  <li>
-                    <p>Created at:</p> {{api.api.created_at || ' unknown '}}
-                  </li>
-                  <li>
-                    <p>Provider:</p> {{getText(api.api.hasProvider) || ' unknown '}}
-                  </li>
-                </ul>
-              </div>
-              <div class="col-5">
-                <ul class="apiUl">
-                  <li>
-                    <p>Endpoint:</p> <a href="{{api.api.endpoint}}">{{api.api.endpoint || ' unknown '}}</a>
-                  </li>
-                  <li>
-                    <p>Homepage:</p> <a href="{{api.api.homepage}}">{{api.api.homepage || ' unknown '}}</a>
-                  </li>
-                  <li>
-                    <p>Category:</p>
-                    <p *ngFor="let cat of api.api.hasCategory"> {{getText(cat) || ' unknown '}}</p>
-                  </li>
-                </ul>
-              </div>
+      <div *ngFor="let api of apisResponse">
+        <div class="apiContainer">
+          <div class="row">
+            <div class="col-2">
+              <img src="{{api.api.image || 'http://www.sclance.com/pngs/no-image-png/no_image_png_935227.png'}}"
+                onError="this.src='http://www.sclance.com/pngs/no-image-png/no_image_png_935227.png'" width="100"
+                height="100">
             </div>
-            <br>
-            <div class="row">
-              <div class="col-md-12 text-center">
-                <ul class="apiUl">
-                  <li>
-                    <p>Description:</p> {{api.api.description || ' unknown '}}
-                  </li>
-                </ul>
-              </div>
-
+            <div class="col-5">
+              <ul class="apiUl">
+                <li>
+                  <p>Name:</p> {{api.api.name || ' unknown '}}
+                </li>
+                <li>
+                  <p>Created at:</p> {{api.api.created_at || ' unknown '}}
+                </li>
+                <li>
+                  <p>Provider:</p> {{getText(api.api.hasProvider) || ' unknown '}}
+                </li>
+              </ul>
             </div>
-
-            <div id="{{api.api.slug || api.api.name}}" style="display: none" class="row">
-              <div class="col-2">
-              </div>
-              <div class="col-5">
-                <ul class="apiUl">
-                  <li>
-                    <p>License:</p> {{api.api.license_url || ' unknown '}}
-                  </li>
-                  <li>
-                    <p>Updated at:</p> {{api.api.update_at || ' unknown '}}
-                  </li>
-                  <li>
-                    <p>Authetication Model:</p> {{api.api.auth_model || ' unknown '}}
-                  </li>
-                  <li>
-                    <p>Response Format:</p>
-                    <div *ngFor="let res of api.api.hasSupportedResFormat">
-                      <p>{{getText(res) || ' unknown '}}</p>
-                    </div>
-                  </li>
-                  <li>
-                    <p>Protocol:</p> {{ getText(api.api.hasProtocol)  || ' unknown '}}
-                  </li>
-                </ul>
-              </div>
-              <div class="col-5">
-                <ul class="apiUl">
-                  <li>
-                    <p>SSL Support:</p> {{api.api.SSLSupport? ' Yes ' : ' No '}}
-                  </li>
-                  <li>
-                    <p>Request Format:</p>
-                    <div *ngFor="let req of api.api.hasSupportedReqFormat">
-                      <p>{{getText(req)|| ' unknown '}}</p>
-                    </div>
-                  </li>
-                  <li>
-                    <p>Documentation:</p> <a href="{{api.api.doc_url}}">{{api.api.doc_url || ' unknown '}}</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12 text-center">
-                <div *ngIf="api.api.slug;else templateName">
-                  <a style=" cursor: pointer; " (click)="show_more($event, api.api.slug)">show more</a>
-                </div>
-                <ng-template #templateName>
-                  <a style=" cursor: pointer; " (click)="show_more($event, api.api.name)">show more</a>
-                </ng-template>
-              </div>
-
+            <div class="col-5">
+              <ul class="apiUl">
+                <li>
+                  <p>Endpoint:</p> <a href="{{api.api.endpoint}}">{{api.api.endpoint || ' unknown '}}</a>
+                </li>
+                <li>
+                  <p>Homepage:</p> <a href="{{api.api.homepage}}">{{api.api.homepage || ' unknown '}}</a>
+                </li>
+                <li>
+                  <p>Category:</p>
+                  <p *ngFor="let cat of api.api.hasCategory"> {{getText(cat) || ' unknown '}}</p>
+                </li>
+              </ul>
             </div>
           </div>
           <br>
-        </div>
-
-
-      </div>
-    </div>
-    <div *ngIf="code || everywere">
-      <!-- <p>searching for code</p> -->
-
-      <div id="codeResults" *ngIf="codeResponse && multisearch">
-        <p>Found {{codeResponse.repos.length}} Repository</p>
-        <!-- HERE1-->
-        <div class="results">
-          <div *ngFor="let repo of codeResponse.repos">
-            <div class="apiContainer">
-              <div class="row">
-                <div class="col-2">
-                  <img [attr.src]="repo.owner_avatar_url" [attr.href]="repo.owner_avatar_url" width="100" height="100">
-                </div>
-                <div class="col-5">
-                  <ul class="apiUl">
-                    <li>
-                      <p>Owner Name:</p> <a style="color:black" target="_blank"
-                        [attr.href]="repo.owner_url">{{ repo.owner_name}}</a>
-                    </li>
-                    <li>
-                      <p>Repo Name:</p> <a style="color:black" target="_blank"
-                        [attr.href]="repo.repo_url">{{ repo.repo_name}}</a>
-                    </li>
-                    <li>
-                      <button class="btn btn-lg btn-outline-primary"  data-target='#myModal' data-toggle='modal' (click)="openModals(repo.repo_tree)">Launch demo
-                        modal</button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <ul class="apiUl">
+                <li>
+                  <p>Description:</p> {{api.api.description || ' unknown '}}
+                </li>
+              </ul>
             </div>
 
+          </div>
 
-            <!-- HERE -->
-            <!-- <img style="width:100px; height: 100px;" [attr.src]="repo.owner_avatar_url"
-                [attr.href]="repo.owner_avatar_url">
-              <br>
-              <a style="color:black" target="_blank" [attr.href]="repo.owner_url">{{ repo.owner_name}}</a>
-              <br>
-              <a style="color:black" target="_blank" [attr.href]="repo.repo_url">{{ repo.repo_name}}</a>
-  
-              <table>
-                <tr>
-                  <th></th>
-                  <th>File name</th>
-                  <th>link</th>
-                </tr>
-                <tr *ngFor="let file of repo.repo_tree">
-                  <td *ngIf="file.type=='file'" class="file"> <img style="width:25px; height: 25px;"
-                      src="https://cdn2.iconfinder.com/data/icons/origami/PNG/256%20x%20256/file.png"> </td>
-                  <td *ngIf="file.type!='file'" class="folder"> <img style="width:25px; height: 25px;"
-                      src="data:image/jpeg;base64,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">
-                  </td>
-                  <td>{{file.name}}</td>
-                  <td><a *ngIf="file.type=='file'" style="color:black" target="_blank" [attr.href]="file.conten_url">
-                      content </a>
-                    <a *ngIf="file.type!='file'" style="color:black" target="_blank" [attr.href]="file.conten_url"> open
-                      dir content </a>
-                  </td>
-                </tr>
-              </table> -->
+          <div id="{{api.api.slug || api.api.name}}" style="display: none" class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-5">
+              <ul class="apiUl">
+                <li>
+                  <p>License:</p> {{api.api.license_url || ' unknown '}}
+                </li>
+                <li>
+                  <p>Updated at:</p> {{api.api.update_at || ' unknown '}}
+                </li>
+                <li>
+                  <p>Authetication Model:</p> {{api.api.auth_model || ' unknown '}}
+                </li>
+                <li>
+                  <p>Response Format:</p>
+                  <div *ngFor="let res of api.api.hasSupportedResFormat">
+                    <p>{{getText(res) || ' unknown '}}</p>
+                  </div>
+                </li>
+                <li>
+                  <p>Protocol:</p> {{ getText(api.api.hasProtocol)  || ' unknown '}}
+                </li>
+              </ul>
+            </div>
+            <div class="col-5">
+              <ul class="apiUl">
+                <li>
+                  <p>SSL Support:</p> {{api.api.SSLSupport? ' Yes ' : ' No '}}
+                </li>
+                <li>
+                  <p>Request Format:</p>
+                  <div *ngFor="let req of api.api.hasSupportedReqFormat">
+                    <p>{{getText(req)|| ' unknown '}}</p>
+                  </div>
+                </li>
+                <li>
+                  <p>Documentation:</p> <a href="{{api.api.doc_url}}">{{api.api.doc_url || ' unknown '}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 text-center">
+              <div *ngIf="api.api.slug;else templateName">
+                <a style=" cursor: pointer; " (click)="show_more($event, api.api.slug)">show more</a>
+              </div>
+              <ng-template #templateName>
+                <a style=" cursor: pointer; " (click)="show_more($event, api.api.name)">show more</a>
+              </ng-template>
+            </div>
+
+          </div>
+        </div>
+        <br>
+      </div>
+
+
+    </div>
+  </div>
+  <div *ngIf="code || everywere">
+    <!-- <p>searching for code</p> -->
+
+    <div id="codeResults" *ngIf="codeResponse && multisearch">
+      <p>Found {{codeResponse.repos.length}} Repository</p>
+      <!-- HERE1-->
+      <div class="results">
+        <div *ngFor="let repo of codeResponse.repos">
+          <div class="apiContainer">
+            <div class="row">
+              <div class="col-2">
+                <img [attr.src]="repo.owner_avatar_url" [attr.href]="repo.owner_avatar_url" width="100" height="100">
+              </div>
+              <div class="col-5">
+                <ul class="apiUl">
+                  <li>
+                    <p>Owner Name:</p> <a style="color:black" target="_blank"
+                      [attr.href]="repo.owner_url">{{ repo.owner_name}}</a>
+                  </li>
+                  <li>
+                    <p>Repo Name:</p> <a style="color:black" target="_blank"
+                      [attr.href]="repo.repo_url">{{ repo.repo_name}}</a>
+                  </li>
+                  <li>
+                      <button type="button" class="btn btn-primary"  (click)="openModals(repo.repo_tree,repo.owner_name,repo.repo_name)" data-toggle="modal" data-target="#myModal1">
+                        Open modal
+                      </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </form>
-  <div *ngIf="openModal">
-    <div class="modal-dialog" id="myModal">
+  </div>
+
+
+  <div class="modal fade" id="myModal1">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
+      
+        <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Hi there!</h4>
-          <button type="button" class="close" aria-label="Close" (click)="closeModals()">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
+        
+        <!-- Modal body -->
         <div class="modal-body">
-          <table>
-            <tr>
-              <th></th>
-              <th>File name</th>
-              <th>link</th>
-            </tr>
-            <tr *ngFor="let file of tree">
-              <td *ngIf="file.type=='file'" class="file"> <img style="width:25px; height: 25px;"
-                  src="https://cdn2.iconfinder.com/data/icons/origami/PNG/256%20x%20256/file.png"> </td>
-              <td *ngIf="file.type!='file'" class="folder"> <img style="width:25px; height: 25px;"
+          <div class="row" *ngFor="let file of tree">
+            <div class="col-6">
+              <div *ngIf="file.type=='file'" class="file"> <img style="width:25px; height: 25px;"
+                  src="https://cdn2.iconfinder.com/data/icons/origami/PNG/256%20x%20256/file.png"> {{file.name}} </div>
+              <div *ngIf="file.type!='file'" class="folder"> <img style="width:25px; height: 25px;"
                   src="data:image/jpeg;base64,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">
-              </td>
-              <td>{{file.name}}</td>
-              <td><a *ngIf="file.type=='file'" style="color:black" target="_blank" [attr.href]="file.conten_url">
+                  {{file.name}}
+                </div> 
+            </div>
+            <div class="col-6">
+              <div><a *ngIf="file.type=='file'" style="color:black" target="_blank" [attr.href]="file.conten_url">
                   content </a>
-                <a *ngIf="file.type!='file'" style="color:black" target="_blank" [attr.href]="file.conten_url"> open
+                <a *ngIf="file.type!='file'" style="color:black" target="_blank" (click)='getContentData(file.path)'> open
                   dir content </a>
-              </td>
-            </tr>
-          </table>
+              </div>
+            </div>
+          </div>
         </div>
+        
+        <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" (click)="closeModals()">Close</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
+        
       </div>
     </div>
   </div>

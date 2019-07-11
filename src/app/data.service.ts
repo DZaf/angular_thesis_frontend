@@ -22,6 +22,11 @@ export class DataService {
     }
   }
 
+  OpenDir(path:String,owner:String,repo:String)
+  {
+    return this.http.get(`https://thesis-server-icsd14052-54.herokuapp.com/github/content/dir/${owner}/${repo}?path=${path}`).pipe(catchError(this.handleError));
+  }
+
 
   apiSearch(email: any, tags: Array<String>, adv_search_data: Object) {
     var query = "";
