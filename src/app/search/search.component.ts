@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
-import * as A from 'jquery';
 
+declare var $: any;
 
 @Component({
   selector: 'app-search',
@@ -18,12 +18,18 @@ export class SearchComponent implements OnInit {
   web_apis = false;
   everywere = false;
   multisearch = true;
+  rootTree:any;
   codeResponse: any;
   apisResponse: any;
-  errors=false;
-  errorMessage="";
-  openModal=false;
-  tree:any;
+  dirResponse: any;
+  owner = "";
+  repo = "";
+  path="";
+  errors = false;
+  errorMessage = "";
+  openModal = false;
+  tree: any;
+  dirClicked=false;
   //everywhereResponse: any;
   keyword: String;
   adv_search = false;
@@ -63,7 +69,7 @@ export class SearchComponent implements OnInit {
   onClick(input) {
     delete this.codeResponse;
     delete this.apisResponse;
-    this.errors=false;
+    this.errors = false;
     if (input == "code") {
       this.code = true; this.web_apis = false; this.everywere = false;
     }
@@ -116,7 +122,7 @@ export class SearchComponent implements OnInit {
 
 
   onSubmit() {
-    this.errors=false;
+    this.errors = false;
     console.log(this.errors);
 
     delete this.apisResponse;
@@ -145,9 +151,9 @@ export class SearchComponent implements OnInit {
         },
           error => {
             console.log(error.message);
-        this.errorMessage=error.message
-        this.errors=true;
-        this.spinner = false;
+            this.errorMessage = error.message
+            this.errors = true;
+            this.spinner = false;
           });
 
     }
@@ -155,7 +161,7 @@ export class SearchComponent implements OnInit {
       console.log("submiting form for  Apis search");
 
       this.keyword = this.messageForm.controls.keyword.value;
-    
+
       //console.log(this.keyword);
 
       //this.tags.push(this.keyword);
@@ -182,28 +188,60 @@ export class SearchComponent implements OnInit {
         this.tags = [];
       }, error => {
         console.log(error.message);
-        this.errorMessage=error.message
-        this.errors=true;
+        this.errorMessage = error.message
+        this.errors = true;
         this.spinner = false;
         this.tags = [];
       })
 
     }
   }
+  getContentData(path) {
+    this.path=path;
+    this.dirClicked=true;
+    this.data.OpenDir(path, this.owner, this.repo).subscribe(result => {
+      this.dirResponse = result;
+      this.tree = result["dir_tree"];
+      console.log(this.dirResponse);
+    }, error => {
+      console.log(error.message);
+      this.errorMessage = error.message
+      this.errors = true;
+    })
 
-  openModals(trees){
-    this.openModal=true;
-    this.tree=trees;
-    A("#myModal").modal('show');
   }
 
-  closeModals(){
-    this.openModal=false;
+  openModals( owner, repo) {
+    this.openModal = true;
+    this.owner = owner;
+    this.repo = repo;
+    this.getContentData("");
+  }
+
+  closeModals() {
+    this.openModal = false;
     delete this.tree;
-    A("#myModal").modal('hide');
+  }
+
+  back() {
+    if(this.path.match(/\//g))
+    {
+      this.path=this.path.replace(/\/.*$/, '')
+      console.log(this.path);
+      this.getContentData(this.path);
+    }else{
+      this.getContentData("");
+      this.dirClicked=false;
+    }
+    
+  }
+
+  scroll(el) {
+    var elmnt = document.getElementById(el);
+    elmnt.scrollIntoView({behavior: 'smooth' });
+    console.log(el)
   }
 
 
 }
 
-   
