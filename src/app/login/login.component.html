@@ -2,11 +2,11 @@
   <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
   <label>
     Email:
-    <input type="email" formControlName="email">
+    <input type="email" formControlName="email" required>
   </label>
   <label>
     Password:
-    <input type="password" formControlName="password">
+    <input type="password" formControlName="password" required>
   </label>
 
   <input type="submit" value="Send message" class="cta">
