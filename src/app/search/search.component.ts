@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare var $: any;
 
@@ -22,6 +23,7 @@ export class SearchComponent implements OnInit {
   codeResponse: any;
   apisResponse: any;
   dirResponse: any;
+  codeClicked:any;
   owner = "";
   repo = "";
   path="";
@@ -37,7 +39,7 @@ export class SearchComponent implements OnInit {
   tags = [];
   /* edo to mail tou xristi */
   email: any = localStorage.getItem('email');
-  constructor(private formBuilder: FormBuilder, private data: DataService, private _router: Router) {
+  constructor(private formBuilder: FormBuilder, private data: DataService, private _router: Router,public sanitizer: DomSanitizer) {
 
     this.messageForm = this.formBuilder.group({
       keyword: ['', Validators.required],
@@ -197,8 +199,13 @@ export class SearchComponent implements OnInit {
     }
   }
   getContentData(path) {
+    console.log(path)
     this.path=path;
-    this.dirClicked=true;
+    if(path!="")
+    {
+      this.dirClicked=true;
+    }
+    
     this.data.OpenDir(path, this.owner, this.repo).subscribe(result => {
       this.dirResponse = result;
       this.tree = result["dir_tree"];
@@ -215,6 +222,7 @@ export class SearchComponent implements OnInit {
     this.openModal = true;
     this.owner = owner;
     this.repo = repo;
+    console.log("all ok")
     this.getContentData("");
   }
 
@@ -226,7 +234,7 @@ export class SearchComponent implements OnInit {
   back() {
     if(this.path.match(/\//g))
     {
-      this.path=this.path.replace(/\/.*$/, '')
+      this.path=this.path.replace(/\/[\d*\w*\.*]*$/, '')
       console.log(this.path);
       this.getContentData(this.path);
     }else{
