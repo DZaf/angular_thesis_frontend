@@ -84,6 +84,11 @@ li p {
 #myModal{
   position: absolute;
 }
+.clickable:hover
+{
+  cursor: pointer;
+  text-decoration: underline !important; 
+}
 
 /* .modal {
   display: none;

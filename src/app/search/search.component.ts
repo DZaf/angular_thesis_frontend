@@ -18,15 +18,18 @@ export class SearchComponent implements OnInit {
   web_apis = false;
   everywere = false;
   multisearch = true;
+  rootTree:any;
   codeResponse: any;
   apisResponse: any;
   dirResponse: any;
   owner = "";
   repo = "";
+  path="";
   errors = false;
   errorMessage = "";
   openModal = false;
   tree: any;
+  dirClicked=false;
   //everywhereResponse: any;
   keyword: String;
   adv_search = false;
@@ -194,9 +197,11 @@ export class SearchComponent implements OnInit {
     }
   }
   getContentData(path) {
-
+    this.path=path;
+    this.dirClicked=true;
     this.data.OpenDir(path, this.owner, this.repo).subscribe(result => {
       this.dirResponse = result;
+      this.tree = result["dir_tree"];
       console.log(this.dirResponse);
     }, error => {
       console.log(error.message);
@@ -206,16 +211,29 @@ export class SearchComponent implements OnInit {
 
   }
 
-  openModals(trees, owner, repo) {
+  openModals( owner, repo) {
     this.openModal = true;
-    this.tree = trees;
     this.owner = owner;
     this.repo = repo;
+    this.getContentData("");
   }
 
   closeModals() {
     this.openModal = false;
     delete this.tree;
+  }
+
+  back() {
+    if(this.path.match(/\//g))
+    {
+      this.path=this.path.replace(/\/.*$/, '')
+      console.log(this.path);
+      this.getContentData(this.path);
+    }else{
+      this.getContentData("");
+      this.dirClicked=false;
+    }
+    
   }
 
   scroll(el) {

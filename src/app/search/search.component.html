@@ -292,7 +292,7 @@
                       [attr.href]="repo.repo_url">{{ repo.repo_name}}</a>
                   </li>
                   <li>
-                      <button type="button" class="btn btn-primary"  (click)="openModals(repo.repo_tree,repo.owner_name,repo.repo_name)" data-toggle="modal" data-target="#myModal1">
+                      <button type="button" class="btn btn-primary"  (click)="openModals(repo.owner_name,repo.repo_name)" data-toggle="modal" data-target="#myModal1">
                         Open modal
                       </button>
                   </li>
@@ -300,6 +300,7 @@
               </div>
             </div>
           </div>
+          <br>
         </div>
       </div>
     </div>
@@ -318,6 +319,11 @@
         
         <!-- Modal body -->
         <div class="modal-body">
+            <button *ngIf="dirClicked" type="button" class="btn btn-primary"  (click)="back()">
+                back
+              </button>
+              <p *ngIf="dirClicked">/{{path}}</p>
+                <p *ngIf="!dirClicked">/</p>
           <div class="row" *ngFor="let file of tree">
             <div class="col-6">
               <div *ngIf="file.type=='file'" class="file"> <img style="width:25px; height: 25px;"
@@ -330,7 +336,7 @@
             <div class="col-6">
               <div><a *ngIf="file.type=='file'" style="color:black" target="_blank" [attr.href]="file.conten_url">
                   content </a>
-                <a *ngIf="file.type!='file'" style="color:black" target="_blank" (click)='getContentData(file.path)'> open
+                <a class="clickable" *ngIf="file.type!='file'" style="color:black" target="_blank" (click)='getContentData(file.path)'> open
                   dir content </a>
               </div>
             </div>
