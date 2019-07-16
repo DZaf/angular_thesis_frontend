@@ -40,26 +40,20 @@
               formControlName="hasProvider">
           </div>
           <div class="col-2">
-            <label for="category">Category</label>
-            <select class="form-control" name="category" id="" formControlName="category"></select>
-          </div>
-          <div class="col-2">
-            <div class="checkbox">
-              <label><input name="ssl" formControlName="SSLSupport" type="checkbox" value="true">SSL Support</label>
-            </div>
-            <!-- <label for="ssl">SSL Support</label>
-              <select class="form-control" name="ssl" formControlName="SSLSupport">
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-              </select> -->
-          </div>
-          <div class="col-2">
-            <label for="documentation">Documentation</label>
-            <select class="form-control" name="documentation" id="" formControlName="doc_url">
-              <option value="true">Yes</option>
-              <option value="false">No</option>
+            <label for="protocol">Protocol</label>
+            <select class="form-control" name="protocol" id="" formControlName="hasProtocol">
+              <option value="rest">rest</option>
+              <option value="streaming">streaming</option>
+              <option value="graphql">graphql</option>
+              <option value="indirect">indirect</option>
+              <option value="browser">browser</option>
+              <option value="rpc">rpc</option>
             </select>
           </div>
+          <!-- <div class="col-2">
+            <label for="category">Category</label>
+            <select class="form-control" name="category" id="" formControlName="category"></select>
+          </div> -->
           <div class="col-2">
             <label for="auth_model">Authetication Model</label>
             <select class="form-control" name="auth_model" id="" formControlName="auth_model">
@@ -69,22 +63,6 @@
               <option value="App ID">App ID</option>
               <option value="HTTP Basic Auth">HTTP Basic Auth</option>
               <option value="Shared Secret">Shared Secret</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <label for="swagger">Swagger</label>
-            <select class="form-control" name="swagger" id="" formControlName="swagger">
-              <option value="true">Yes</option>
-              <option value="false">No</option>
-            </select>
-          </div>
-          <div class="col-2">
-            <label for="license">License</label>
-            <select class="form-control" name="license" id="" formControlName="license_url">
-              <option value="true">Yes</option>
-              <option value="false">No</option>
             </select>
           </div>
           <div class="col-2">
@@ -134,6 +112,32 @@
               <option value="csv">csv</option>
             </select>
           </div>
+        </div>
+        <br>
+        <div class="row">
+          <!-- <div class="col-2">
+            <label for="swagger">Swagger</label>
+            <select class="form-control" name="swagger" id="" formControlName="swagger">
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          </div> -->
+          <div class="col-2">
+            <div class="checkbox">
+              <label><input name="license" formControlName="license_url" type="checkbox" value="true">License</label>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="checkbox">
+              <label><input name="ssl" formControlName="SSLSupport" type="checkbox" value="true">SSL Support</label>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="checkbox">
+              <label><input name="documentation" formControlName="doc_url" type="checkbox"
+                  value="true">Documentation</label>
+            </div>
+          </div>
           <div class="col-2">
 
           </div>
@@ -143,13 +147,16 @@
     </div>
   </form>
   <div id="myBtn">
-      <button style="margin-right: 5px " *ngIf="everywere && apisResponse" (click)="scroll('apiResults')" class="btn btn-primary"  title="Go to top">API</button>
-    <button style="display: inline"  *ngIf="everywere && apisResponse" (click)="scroll('codeResults')" class="btn btn-primary"  title="Go to top">Github</button>
-    
+    <button style="margin-right: 5px " *ngIf="everywere && apisResponse" (click)="scroll('apiResults')"
+      class="btn btn-primary" title="Go to top">API</button>
+    <button style="display: inline" *ngIf="everywere && apisResponse" (click)="scroll('codeResults')"
+      class="btn btn-primary" title="Go to top">Github</button>
+
   </div>
-  
-  <button *ngIf="!everywere && (apisResponse || codeResponse)" (click)="scroll('top')" class="btn btn-primary" id="myBtn2" title="Go to top">top</button>
-  
+
+  <button *ngIf="!everywere && (apisResponse || codeResponse)" (click)="scroll('top')" class="btn btn-primary"
+    id="myBtn2" title="Go to top">top</button>
+
   <!-- <div class="row"> -->
   <!-- EMFANISI GIA API -->
   <div *ngIf="web_apis || everywere">
@@ -158,10 +165,10 @@
 
     <!-- ADVANCED SEARCH FINISH -->
     <div id="apiResults" *ngIf="apisResponse && multisearch">
-      <p>Found {{apisResponse.length}} APIs</p>
+      <p>Found {{allApisResponse.length}} APIs</p>
 
       <div *ngFor="let api of apisResponse">
-        <div class="apiContainer">
+        <div class="apiContainer" *ngIf="api">
           <div class="row">
             <div class="col-2">
               <img src="{{api.api.image || 'http://www.sclance.com/pngs/no-image-png/no_image_png_935227.png'}}"
@@ -264,6 +271,22 @@
         </div>
         <br>
       </div>
+      <div class="row">
+        <div class="col-3">
+        </div>
+        <div class="col-3">
+          <button *ngIf="allApisResponse.length>3 && currentButton!=0" style="float: right;" class="btn btn-primary"
+            type="button" (click)="Prev()">Previous</button>
+        </div>
+        <div class="col-3">
+          <button *ngIf="allApisResponse.length>3 && currentButton!=howManyButtons" class="btn btn btn-primary"
+            type="button" (click)="Next()">Next</button>
+        </div>
+        <div class="col-3">
+        </div>
+
+
+      </div>
 
 
     </div>
@@ -284,24 +307,49 @@
               <div class="col-5">
                 <ul class="apiUl">
                   <li>
-                    <p>Owner Name:</p> <a style="color:black" target="_blank"
+                    <p>Owner Name: </p> <a style="color:black" target="_blank"
                       [attr.href]="repo.owner_url">{{ repo.owner_name}}</a>
                   </li>
                   <li>
-                    <p>Repo Name:</p> <a style="color:black" target="_blank"
+                    <p>Repo Name: </p> <a style="color:black" target="_blank"
                       [attr.href]="repo.repo_url">{{ repo.repo_name}}</a>
                   </li>
                   <li>
-                      <button type="button" class="btn btn-primary"  (click)="openModals(repo.owner_name,repo.repo_name)" data-toggle="modal" data-target="#myModal1">
-                        Open modal
-                      </button>
+                    <p>Language: </p>
+                    <p style="color:black">{{ repo.repo_language}}</p>
                   </li>
                 </ul>
+              </div>
+              <div class="col-5">
+                <ul class="apiUl">
+                  <li>
+                    <p>Owner URL: </p><a style="color:black" target="_blank"
+                      [attr.href]="repo.owner_url">{{ repo.owner_url}}</a>
+                  </li>
+                  <li>
+                    <p>Repository URL: </p> <a style="color:black" target="_blank"
+                      [attr.href]="repo.repo_url">{{ repo.repo_url}}</a>
+                  </li>
+                  <li>
+                    <p>Repo Score: </p>
+                    <p style="color:black">{{ repo.repo_score}}</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-2"></div>
+              <div class="col-10">
+                <button type="button" class="btn btn-primary btn-block"
+                  (click)="openModals(repo.owner_name,repo.repo_name)" data-toggle="modal" data-target="#myModal1">
+                  Open modal
+                </button>
               </div>
             </div>
           </div>
           <br>
         </div>
+
       </div>
     </div>
   </div>
@@ -310,44 +358,41 @@
   <div class="modal fade" id="myModal1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-      
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Modal Heading</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
-        
+
         <!-- Modal body -->
         <div class="modal-body">
-            <button *ngIf="dirClicked" type="button" class="btn btn-primary"  (click)="back()">
-                back
-              </button>
-              <p *ngIf="dirClicked">/{{path}}</p>
-                <p *ngIf="!dirClicked">/</p>
+          <button *ngIf="dirClicked" type="button" class="btn btn-primary" (click)="back()">
+            back
+          </button>
+          <p *ngIf="dirClicked">/{{path}}</p>
+          <p *ngIf="!dirClicked">/</p>
           <div class="row" *ngFor="let file of tree">
             <div class="col-6">
               <div *ngIf="file.type=='file'" class="file"> <img style="width:25px; height: 25px;"
-                  src="https://cdn2.iconfinder.com/data/icons/origami/PNG/256%20x%20256/file.png"> {{file.name}} </div>
+                  src="https://cdn2.iconfinder.com/data/icons/origami/PNG/256%20x%20256/file.png">
+                <a style="color:black" target="_blank" [attr.href]="file.conten_url"> {{file.name}} </a> </div>
               <div *ngIf="file.type!='file'" class="folder"> <img style="width:25px; height: 25px;"
                   src="data:image/jpeg;base64,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">
-                  {{file.name}}
-                </div> 
-            </div>
-            <div class="col-6">
-              <div><a *ngIf="file.type=='file'" style="color:black" target="_blank" [attr.href]="file.conten_url">
-                  content </a>
-                <a class="clickable" *ngIf="file.type!='file'" style="color:black" target="_blank" (click)='getContentData(file.path)'> open
-                  dir content </a>
+                <a class="clickable" style="color:black" target="_blank" (click)='getContentData(file.path)'>
+                  {{file.name}} </a>
               </div>
             </div>
           </div>
+
+
         </div>
-        
+
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
-        
+
       </div>
     </div>
   </div>
