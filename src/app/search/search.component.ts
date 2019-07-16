@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit {
   rootTree:any;
   codeResponse: any;
   apisResponse: any;
+  allApisResponse:any;
   dirResponse: any;
   codeClicked:any;
   owner = "";
@@ -37,6 +38,9 @@ export class SearchComponent implements OnInit {
   adv_search = false;
   adv_search_data: any = {};
   tags = [];
+  calulateButtons:any;
+  currentButton=0;
+  howManyButtons=0;
   /* edo to mail tou xristi */
   email: any = localStorage.getItem('email');
   constructor(private formBuilder: FormBuilder, private data: DataService, private _router: Router,public sanitizer: DomSanitizer) {
@@ -71,6 +75,9 @@ export class SearchComponent implements OnInit {
   onClick(input) {
     delete this.codeResponse;
     delete this.apisResponse;
+    delete this.calulateButtons;
+    this.currentButton=0;
+    this.howManyButtons=0;
     this.errors = false;
     if (input == "code") {
       this.code = true; this.web_apis = false; this.everywere = false;
@@ -185,7 +192,33 @@ export class SearchComponent implements OnInit {
         if (this.multisearch) {
           this.spinner = false;
         }
-        this.apisResponse = result;
+        this.allApisResponse=result; 
+        if( this.allApisResponse.length<5)
+        {
+          this.apisResponse=[];
+          for(let i=0; i<this.allApisResponse.length;i++)
+          {
+            this.apisResponse = this.allApisResponse;
+          }
+        }else{
+          this.apisResponse=[];
+          this.calulateButtons=[];
+          this.howManyButtons=Math.ceil(this.allApisResponse.length/3)
+          for(let i=0; i<this.howManyButtons; i++)
+          {
+                this.calulateButtons.push({"from":i*3,"to":i*3+2});             
+          }
+          //this.calulateButtons=Math.ceil(this.allApisResponse.length/3)
+          console.log(this.calulateButtons);
+          for(let i=0; i<=2;i++)
+          {
+            //console.log(this.allApisResponse[i]);
+            this.apisResponse.push(this.allApisResponse[i]);
+          }
+        }
+        // for(let i=0; i<5;i++)
+        // this.apisResponse = result;
+        console.log(this.allApisResponse);
         console.log(this.apisResponse);
         this.tags = [];
       }, error => {
@@ -250,6 +283,35 @@ export class SearchComponent implements OnInit {
     console.log(el)
   }
 
+  changePage(from,to)
+  {
+    this.apisResponse=[];
+    for(let i=from; i<=to; i++)
+    {
+      this.apisResponse.push(this.allApisResponse[i]);
+    }
+  }
+
+  Next()
+  {
+    this.currentButton++;
+    let nextPageItem=this.calulateButtons[this.currentButton]
+    if(this.currentButton==this.howManyButtons)
+    {
+      this.changePage(nextPageItem.from,this.allApisResponse.length)
+    }
+    else{
+      this.changePage(nextPageItem.from,nextPageItem.to)
+    }
+    
+  }
+
+  Prev()
+  {
+    this.currentButton--;
+    let nextPageItem=this.calulateButtons[this.currentButton]
+    this.changePage(nextPageItem.from,nextPageItem.to)
+  }
 
 }
 
