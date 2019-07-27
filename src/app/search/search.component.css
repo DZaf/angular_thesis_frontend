@@ -90,6 +90,48 @@ li p {
   text-decoration: underline !important; 
 }
 
+#form
+{
+  background-color: orange;
+  padding: 7px;
+  border-radius: 0px 20px 20px 20px;
+}
+
+.selectedButton
+{
+  background-color: orange;
+  padding: 7px;
+  margin-top: 15px;
+  border-radius: 20px 20px 0px 0px;
+  z-index: 5;
+  width:100%;
+  border: none;
+  position: relative;
+  outline: none;
+}
+
+.unselectedButton
+{
+  background-color: #E89B00;
+  padding: 7px;
+  margin-top: 15px;
+  border-radius: 20px 20px 0px 0px;
+  width:100%;
+  border: none;
+  overflow: hidden;
+  outline: none;
+}
+
+.unselectedButton:hover
+{
+  background-color: #FFBB32;
+  padding: 7px;
+  margin-top: 15px;
+  border-radius: 20px 20px 0px 0px;
+  width:100%;
+  
+}
+
 /* .modal {
   display: none;
 }

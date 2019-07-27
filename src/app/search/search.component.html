@@ -1,22 +1,41 @@
 <div class="container-fluid">
   <div class="row">
     <h4 class="title">Search code, web services or apis</h4>
+
   </div><br>
-  <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-md-2 text-center ">
+      <!-- [ngClass]="code ? 'btn-primary' : 'btn-info'" -->
+      <button [ngClass]="code ? 'selectedButton' : 'unselectedButton'" class="selectedButton" type="button"
+        (click)="onClick('code')">code</button>
+    </div>
+    <div class="col-md-3 text-center" style="margin-left: -35px; ">
+      <button [ngClass]="web_apis ? 'selectedButton' : 'unselectedButton'" type="button"
+        (click)="onClick('web_apis')">web services / apis</button>
+    </div>
+    <div class="col-md-2 text-center" style="margin-left: -35px">
+      <button [ngClass]="everywere ? 'selectedButton' : 'unselectedButton'" type="button"
+        (click)="onClick('everywere')">everywere</button>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <form id="form" [formGroup]="messageForm" (ngSubmit)="onSubmit()">
     <div id="top" class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6">
-        <div style="margin-left: 50px">
+        <!-- <div style="margin-left: 50px">
           <button class="btn sConf" [ngClass]="code ? 'btn-primary' : 'btn-info'" type="button"
             (click)="onClick('code')">code</button>
           <button class="btn sConf" [ngClass]="web_apis ? 'btn-primary' : 'btn-info'" type="button"
             (click)="onClick('web_apis')">web services / apis</button>
           <button class="btn sConf" [ngClass]="everywere ? 'btn-primary' : 'btn-info'" type="button"
             (click)="onClick('everywere')">everywere</button>
-        </div>
-        <input type="text" formControlName="keyword" class="form-control" placeholder="ender keyword">
+        </div> -->
+        <input type="text" formControlName="keyword" class="form-control" placeholder="ender keyword"
+          style="margin-top: 5px">
         <div *ngIf="code || everywere">
-          <input type="text" formControlName="language" class="form-control" placeholder="enter language">
+          <input style="margin-top: 5px" type="text" formControlName="language" class="form-control"
+            placeholder="enter language">
         </div>
       </div>
       <div class="col-md-3"></div>
@@ -30,121 +49,129 @@
     <div *ngIf="errors">
       <p style="color: brown">{{errorMessage}}</p>
     </div>
-    <div *ngIf="everywere || web_apis">
-      <button type="button" class="btn btn-info" (click)="filters()">Advanced search</button>
-      <div *ngIf="adv_search">
-        <div class="row">
-          <div class="col-2">
-            <label for="provider">Provider</label>
-            <input type="text" name="provider" placeholder="provider" class="form-control"
-              formControlName="hasProvider">
+    <div *ngIf="everywere || web_apis" class="row">
+      <div class="col-md-1">
+
+      </div>
+      <div class="col-md-10">
+        <button type="button" class="btn btn-info" (click)="filters()">Advanced search</button>
+        <div *ngIf="adv_search">
+          <div class="row">
+            <div class="col-2">
+              <label for="provider">Provider</label>
+              <input type="text" name="provider" placeholder="provider" class="form-control"
+                formControlName="hasProvider">
+            </div>
+            <div class="col-2">
+              <label for="protocol">Protocol</label>
+              <select class="form-control" name="protocol" id="" formControlName="hasProtocol">
+                <option value="rest">rest</option>
+                <option value="streaming">streaming</option>
+                <option value="graphql">graphql</option>
+                <option value="indirect">indirect</option>
+                <option value="browser">browser</option>
+                <option value="rpc">rpc</option>
+              </select>
+            </div>
+            <!-- <div class="col-2">
+                <label for="category">Category</label>
+                <select class="form-control" name="category" id="" formControlName="category"></select>
+              </div> -->
+            <div class="col-2">
+              <label for="auth_model">Authetication Model</label>
+              <select class="form-control" name="auth_model" id="" formControlName="auth_model">
+                <option value="API Key">API Key</option>
+                <option value="Token">Token</option>
+                <option value="OAuth 2">OAuth 2</option>
+                <option value="App ID">App ID</option>
+                <option value="HTTP Basic Auth">HTTP Basic Auth</option>
+                <option value="Shared Secret">Shared Secret</option>
+              </select>
+            </div>
+            <div class="col-2">
+              <label for="protocol">Protocol</label>
+              <select class="form-control" name="protocol" id="" formControlName="hasProtocol">
+                <option value="rest">rest</option>
+                <option value="streaming">streaming</option>
+                <option value="graphql">graphql</option>
+                <option value="indirect">indirect</option>
+                <option value="browser">browser</option>
+                <option value="rpc">rpc</option>
+              </select>
+            </div>
+            <div class="col-2">
+              <label for="data_req_format">Request Format</label>
+              <select class="form-control" name="data_req_format" id="" formControlName="hasSupportedReqFormat">
+                <option value="jsonp">jsonp</option>
+                <option value="json">json</option>
+                <option value="html">html</option>
+                <option value="xml">xml</option>
+                <option value="text">text</option>
+                <option value="uri-query-string/crud">crud</option>
+                <option value="wav">wav</option>
+                <option value="csv">csv</option>
+                <option value="json-ld">jsonld</option>
+                <option value="image">image</option>
+                <option value="websockets">websockets</option>
+                <option value="md">md</option>
+              </select>
+            </div>
+            <div class="col-2">
+              <label for="data_res_format">Response Format</label>
+              <select class="form-control" name="data_res_format" id="" formControlName="hasSupportedResFormat">
+                <option value="uri-query-string/crud">crud</option>
+                <option value="json">json</option>
+                <option value="xml">xml</option>
+                <option value="webhooks">webhooks</option>
+                <option value="websockets">websockets</option>
+                <option value="http-graphql-request-(query">http graphql request</option>
+                <option value="soap">soap</option>
+                <option value="jsonp">jsonp</option>
+                <option value="json-ld">json-ld</option>
+                <option value="text">text</option>
+                <option value="mutation">mutation</option>
+                <option value="subscription">subscription</option>
+                <option value="json-api">json-api</option>
+                <option value="csv">csv</option>
+              </select>
+            </div>
           </div>
-          <div class="col-2">
-            <label for="protocol">Protocol</label>
-            <select class="form-control" name="protocol" id="" formControlName="hasProtocol">
-              <option value="rest">rest</option>
-              <option value="streaming">streaming</option>
-              <option value="graphql">graphql</option>
-              <option value="indirect">indirect</option>
-              <option value="browser">browser</option>
-              <option value="rpc">rpc</option>
-            </select>
-          </div>
-          <!-- <div class="col-2">
-            <label for="category">Category</label>
-            <select class="form-control" name="category" id="" formControlName="category"></select>
-          </div> -->
-          <div class="col-2">
-            <label for="auth_model">Authetication Model</label>
-            <select class="form-control" name="auth_model" id="" formControlName="auth_model">
-              <option value="API Key">API Key</option>
-              <option value="Token">Token</option>
-              <option value="OAuth 2">OAuth 2</option>
-              <option value="App ID">App ID</option>
-              <option value="HTTP Basic Auth">HTTP Basic Auth</option>
-              <option value="Shared Secret">Shared Secret</option>
-            </select>
-          </div>
-          <div class="col-2">
-            <label for="protocol">Protocol</label>
-            <select class="form-control" name="protocol" id="" formControlName="hasProtocol">
-              <option value="rest">rest</option>
-              <option value="streaming">streaming</option>
-              <option value="graphql">graphql</option>
-              <option value="indirect">indirect</option>
-              <option value="browser">browser</option>
-              <option value="rpc">rpc</option>
-            </select>
-          </div>
-          <div class="col-2">
-            <label for="data_req_format">Request Format</label>
-            <select class="form-control" name="data_req_format" id="" formControlName="hasSupportedReqFormat">
-              <option value="jsonp">jsonp</option>
-              <option value="json">json</option>
-              <option value="html">html</option>
-              <option value="xml">xml</option>
-              <option value="text">text</option>
-              <option value="uri-query-string/crud">crud</option>
-              <option value="wav">wav</option>
-              <option value="csv">csv</option>
-              <option value="json-ld">jsonld</option>
-              <option value="image">image</option>
-              <option value="websockets">websockets</option>
-              <option value="md">md</option>
-            </select>
-          </div>
-          <div class="col-2">
-            <label for="data_res_format">Response Format</label>
-            <select class="form-control" name="data_res_format" id="" formControlName="hasSupportedResFormat">
-              <option value="uri-query-string/crud">crud</option>
-              <option value="json">json</option>
-              <option value="xml">xml</option>
-              <option value="webhooks">webhooks</option>
-              <option value="websockets">websockets</option>
-              <option value="http-graphql-request-(query">http graphql request</option>
-              <option value="soap">soap</option>
-              <option value="jsonp">jsonp</option>
-              <option value="json-ld">json-ld</option>
-              <option value="text">text</option>
-              <option value="mutation">mutation</option>
-              <option value="subscription">subscription</option>
-              <option value="json-api">json-api</option>
-              <option value="csv">csv</option>
-            </select>
+          <br>
+          <div class="row">
+            <!-- <div class="col-2">
+                <label for="swagger">Swagger</label>
+                <select class="form-control" name="swagger" id="" formControlName="swagger">
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
+              </div> -->
+            <div class="col-2">
+              <div class="checkbox">
+                <label><input name="license" formControlName="license_url" type="checkbox" value="true">License</label>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="checkbox">
+                <label><input name="ssl" formControlName="SSLSupport" type="checkbox" value="true">SSL Support</label>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="checkbox">
+                <label><input name="documentation" formControlName="doc_url" type="checkbox"
+                    value="true">Documentation</label>
+              </div>
+            </div>
+            <div class="col-2">
+
+            </div>
           </div>
         </div>
         <br>
-        <div class="row">
-          <!-- <div class="col-2">
-            <label for="swagger">Swagger</label>
-            <select class="form-control" name="swagger" id="" formControlName="swagger">
-              <option value="true">Yes</option>
-              <option value="false">No</option>
-            </select>
-          </div> -->
-          <div class="col-2">
-            <div class="checkbox">
-              <label><input name="license" formControlName="license_url" type="checkbox" value="true">License</label>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="checkbox">
-              <label><input name="ssl" formControlName="SSLSupport" type="checkbox" value="true">SSL Support</label>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="checkbox">
-              <label><input name="documentation" formControlName="doc_url" type="checkbox"
-                  value="true">Documentation</label>
-            </div>
-          </div>
-          <div class="col-2">
-
-          </div>
-        </div>
       </div>
-      <br>
     </div>
+      <!-- <div *ngIf="everywere || web_apis">
+
+    </div> -->
   </form>
   <div id="myBtn">
     <button style="margin-right: 5px " *ngIf="everywere && apisResponse" (click)="scroll('apiResults')"
