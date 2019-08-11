@@ -82,8 +82,7 @@ export class DataService {
     };
     let token = { "token": localStorage.getItem('token') }
 
-    return this.http.post<Object>("https://thesis-server-icsd14052-54.herokuapp.com/users/verify", token, httpOptions)
-      .pipe(catchError(this.handleError));
+    return this.http.post<Object>("https://thesis-server-icsd14052-54.herokuapp.com/users/verify", token, httpOptions).pipe(catchError(this.handleError));
   }
 
 
