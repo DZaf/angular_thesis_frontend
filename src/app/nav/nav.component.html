@@ -3,12 +3,10 @@
     <a routerLink="/" class="logo">{{ title }}</a>
     <nav>
       <ul>
-        <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="/register">Register</a></li>
-        <li><a routerLink="/git-search">Git</a></li>
-        <li><a routerLink="/login">Login</a></li>
-        <li><a routerLink="/search">Search</a></li>
-        <li><a routerLink="" (click)="logout()">Logout</a></li>
+        <li *ngIf="!LogedInBoolean"><a routerLink="/register">Register</a></li>
+        <li *ngIf="!LogedInBoolean"><a routerLink="/login">Login</a></li>
+        <li *ngIf="LogedInBoolean"><a routerLink="/search">Search</a></li>
+        <li *ngIf="LogedInBoolean"><a routerLink="" (click)="logout()">Logout</a></li>
       </ul>
     </nav>
   </div>
