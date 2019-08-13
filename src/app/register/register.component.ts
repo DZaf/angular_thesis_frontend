@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Router} from'@angular/router';
 import { DataService } from '../data.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
   response: Object;
   errorResponse: Object;
 
-  constructor(private formBuilder: FormBuilder, private data: DataService) {
+  constructor(private formBuilder: FormBuilder, private data: DataService, private _router: Router) {
 
     this.messageForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -46,8 +47,10 @@ export class RegisterComponent implements OnInit {
     }
 
     this.data.registerUser(user)
-      .subscribe(data =>
-        this.response = data,
+      .subscribe(data =>{
+        this._router.navigate(['/login'])
+        this.response = data
+      },
         error => this.errorResponse = error
       );
   }

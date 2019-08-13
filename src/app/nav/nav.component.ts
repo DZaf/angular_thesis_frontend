@@ -9,7 +9,7 @@ import { DataService } from '../data.service';
 })
 export class NavComponent implements OnInit {
 
-  title: string = "My first Angular app";
+  title: string = "Thesis app";
   LogedInBoolean = false;
 
   constructor(private _router: Router, private data: DataService) { }
@@ -27,7 +27,6 @@ export class NavComponent implements OnInit {
   }
 
   check(){
-    
     this.data.Verify()
     .subscribe(result =>      
       { this.LogedInBoolean = true;},

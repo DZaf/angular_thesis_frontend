@@ -92,14 +92,16 @@ li p {
 
 #form
 {
-  background-color: orange;
+  background-color: #003366;
   padding: 7px;
   border-radius: 0px 20px 20px 20px;
+  color:white;
+  opacity: 0.9;
 }
 
 .selectedButton
 {
-  background-color: orange;
+  background-color: #003366;
   padding: 7px;
   margin-top: 15px;
   border-radius: 20px 20px 0px 0px;
@@ -108,11 +110,13 @@ li p {
   border: none;
   position: relative;
   outline: none;
+  color:white;
+  opacity: 0.9;
 }
 
 .unselectedButton
 {
-  background-color: #E89B00;
+  background-color: #00264d;
   padding: 7px;
   margin-top: 15px;
   border-radius: 20px 20px 0px 0px;
@@ -120,16 +124,29 @@ li p {
   border: none;
   overflow: hidden;
   outline: none;
+  color:white;
+  opacity: 0.9;
 }
 
 .unselectedButton:hover
 {
-  background-color: #FFBB32;
+  background-color: #e69900;
   padding: 7px;
   margin-top: 15px;
   border-radius: 20px 20px 0px 0px;
   width:100%;
+  opacity: 0.9;
   
+}
+
+#thebutton{
+  background-color: #e69900;
+    border: none;
+}
+
+#thebutton:hover{
+  background-color: #cc8800;
+  border: none;
 }
 
 /* .modal {
