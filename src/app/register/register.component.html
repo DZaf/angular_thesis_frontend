@@ -4,7 +4,7 @@
 
   <h5 *ngIf="success">Your form is valid</h5>
 
-  <label>
+  <label data-toggle="tooltip" title="name is required">
     Name:
     <input type="text" formControlName="name">
     <div *ngIf="submitted && messageForm.controls.name.errors" class="error">
@@ -12,7 +12,7 @@
     </div>
   </label>
 
-  <label>
+  <label data-toggle="tooltip" title="Surname is required">
       Surname:
       <input type="text" formControlName="surname">
       <div *ngIf="submitted && messageForm.controls.surname.errors" class="error">
@@ -20,7 +20,7 @@
       </div>
     </label>
 
-    <label>
+    <label data-toggle="tooltip" title="Email is required">
         Email:
         <input type="email" formControlName="email">
         <div *ngIf="submitted && messageForm.controls.email.errors" class="error">
@@ -29,7 +29,7 @@
         </div>
       </label>
 
-    <label>
+    <label data-toggle="tooltip" title="Password must be 3 or more letter long">
         Password:
         <input type="password" formControlName="password">
         <div *ngIf="submitted && messageForm.controls.password.errors" class="error">
@@ -39,7 +39,7 @@
 
   
 
-    <input type="submit" value="Send message" class="cta">
+    <input type="submit" value="Register" class="cta">
 </form>
 
 <div *ngIf="submitted && response" class="results">
