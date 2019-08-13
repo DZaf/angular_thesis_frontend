@@ -9,16 +9,19 @@ import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
-    path: '', component: HomeComponent, canActivate: [AuthGuard]
+    path: 'login', component: LoginComponent
   },
+  {
+    path: '', component: SearchComponent
+  },
+  // {
+  //   path: '', component: HomeComponent, canActivate: [AuthGuard]
+  // },
   {
     path: 'register', component: RegisterComponent
   },
   {
     path: 'git-search', component: GitSearchComponent , canActivate: [AuthGuard]
-  },
-  {
-    path: 'login', component: LoginComponent
   },
   {
     path: 'search', component: SearchComponent

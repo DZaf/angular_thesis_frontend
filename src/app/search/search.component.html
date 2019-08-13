@@ -9,11 +9,11 @@
       <button [ngClass]="code ? 'selectedButton' : 'unselectedButton'" class="selectedButton" type="button"
         (click)="onClick('code')">code</button>
     </div>
-    <div class="col-md-3 text-center" style="margin-left: -35px; ">
+    <div class="col-md-3 text-center" style="margin-left: -30px; ">
       <button [ngClass]="web_apis ? 'selectedButton' : 'unselectedButton'" type="button"
         (click)="onClick('web_apis')">web services / apis</button>
     </div>
-    <div class="col-md-2 text-center" style="margin-left: -35px">
+    <div class="col-md-2 text-center" style="margin-left: -30px">
       <button [ngClass]="everywere ? 'selectedButton' : 'unselectedButton'" type="button"
         (click)="onClick('everywere')">everywere</button>
     </div>
@@ -54,7 +54,7 @@
 
       </div>
       <div class="col-md-10">
-        <button type="button" class="btn btn-info" (click)="filters()">Advanced search</button>
+        <button id="thebutton" type="button" class="btn btn-info" (click)="filters()">Advanced search</button>
         <div *ngIf="adv_search">
           <div class="row">
             <div class="col-2">
@@ -369,7 +369,7 @@
               <div class="col-10">
                 <button type="button" class="btn btn-primary btn-block"
                   (click)="openModals(repo.owner_name,repo.repo_name)" data-toggle="modal" data-target="#myModal1">
-                  Open modal
+                 Show more
                 </button>
               </div>
             </div>
