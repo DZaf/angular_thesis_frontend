@@ -8,3 +8,5 @@
   
 # Co-Creators
   -[Γεώργιος Ζώγας](https://github.com/gzogas)
+  
+# [Για περισσότερες λεπτομέριες πατήστε εδώ](https://drive.google.com/file/d/1d_mVLOCvXuduwAe4gcMJ79vhOKdLjOih/view?usp=sharing)
