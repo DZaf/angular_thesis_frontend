@@ -9,8 +9,8 @@ GR:
   - Η δημιουργία ιστοσελίδας one page αρχιτεκτονικής
 
 ENG:
-##### Created at 2019
-This Project was created in 2019 and is the interface (frontend) of the application developed during the thesis of the Department of Information and Communication Systems Engineering of the University of the Aegean entitled Creating a model intelligent system to support the development of interoperable software.
+##### Created in 2019
+This Project was created in 2019 and is the interface (frontend) of the application developed during the thesis of the Department of Information and Communication Systems Engineering of the University of the Aegean entitled as Design and creation of aprototype intelligent system for the development of an interoperable software.
 
 # Knowledge acquired
   - The use of Angular7  **for forntend** and its connection to the API we created
